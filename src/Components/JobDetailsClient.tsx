@@ -85,7 +85,7 @@ export default function JobDetailsClient({ details, jobId }: any) {
           </span>
           <span
             className="inline-block text-lg font-semibold text-white bg-green-500 px-3 py-3 cursor-pointer rounded-md ml-2"
-            onClick={applyjob}
+            onClick={savejob}
           >
             Apply Job
           </span>

@@ -100,7 +100,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="fixed top-0 left-0 w-full h-screen bg-blue-600 text-white flex flex-col items-center space-y-6 py-10 z-50"
+            className="fixed top-0 left-0 w-full h-screen bg-blue-950 text-white flex flex-col items-center space-y-6 py-10 z-50"
           >
             <nav className="grid grid-cols-1 gap-8 text-center text-lg">
               <XCircleIcon
@@ -116,6 +116,13 @@ export default function Navbar() {
               </Link>
 
               <Link
+                href={`/Dashboard`}
+                className="hover:text-red-600 font-medium"
+                onClick={toggleMenu}
+              >
+                CHATS
+              </Link>
+              {/* <Link
                 href={`/Dashboard/userdetails/${userProfile?.id || "id"}`}
                 className="hover:text-red-600 font-medium"
                 onClick={toggleMenu}
@@ -149,7 +156,7 @@ export default function Navbar() {
                 onClick={toggleMenu}
               >
                 APPLIED JOBS
-              </Link>
+              </Link> */}
               <Link
                 href="#"
                 className="hover:text-red-600 font-medium"

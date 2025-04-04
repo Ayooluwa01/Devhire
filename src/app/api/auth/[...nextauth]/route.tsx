@@ -30,10 +30,10 @@ export const authOptions: NextAuthOptions = {
         );
 
         if (response.status === 200) {
-          return true;
+          return true; // Allow sign-in
         } else {
           console.log("User does not exist, redirecting to signup...");
-          return "/Signup";
+          return false;
         }
       } catch (error) {
         console.error("Error during sign-in process:", error);
@@ -42,7 +42,7 @@ export const authOptions: NextAuthOptions = {
     },
 
     async redirect({ url, baseUrl }) {
-      return url.startsWith(baseUrl) ? url : `${baseUrl}/Dashboard`;
+      return url.startsWith(baseUrl) ? url : `${baseUrl}/Dashboard`; // Redirect to Dashboard
     },
 
     async jwt({ token, user }) {
@@ -51,9 +51,7 @@ export const authOptions: NextAuthOptions = {
         token.name = user.name;
         token.email = user.email;
         token.role = user.role || "jobseeker"; // Default role
-
-        const expirationTime = new Date(Date.now() + 30 * 1000).toISOString(); // 30 seconds from now
-        token.expires = expirationTime;
+        token.expires = Math.floor(Date.now() / 1000) + 20; // 20 seconds expiration
       }
       return token;
     },
@@ -63,7 +61,7 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.id;
         session.user.name = token.name;
         session.user.email = token.email;
-        session.user.role = token.role; // Make sure role is passed
+        session.user.role = token.role; // Get role from token
       }
       return session;
     },

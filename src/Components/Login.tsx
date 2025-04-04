@@ -33,16 +33,12 @@ const Login = () => {
 
           if (res.status === 200) {
             // Redirect to Dashboard if login is successful
-            console.log("this is the user token:", res.data);
             dispatch(storeToken(res.data));
             router.push("/Dashboard");
           } else {
             // Handle error if necessary
-            console.error("Error during login");
           }
-        } catch (error) {
-          console.error("Error:", error);
-        }
+        } catch (error) {}
       }
     };
 
@@ -55,8 +51,6 @@ const Login = () => {
 
     try {
       if (!formData.email || !formData.password) {
-        console.log("error");
-
         setError(true as any);
       } else {
         const res = await axios.post("http://localhost:9000/login", formData, {
@@ -77,6 +71,28 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className=" shadow-lg rounded-lg grid md:flex max-w-4xl w-full overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, x: 80 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="md:w-1/2 bg-red-500 p-8 text-white flex flex-col justify-center md:hidden items-center "
+        >
+          <h2 className="text-xl font-semibold mb-4 text-center">
+            Welcome to DevHire
+          </h2>
+          <p className="text-sm text-center">
+            Sign up for something amazing! It could be a volunteer event or a
+            service.
+          </p>
+          <div className="mt-6">
+            {/* Profile icons */}
+            <div className="flex space-x-4">
+              <div className="w-10 h-10 bg-white rounded-full"></div>
+              <div className="w-10 h-10 bg-white rounded-full"></div>
+              <div className="w-10 h-10 bg-white rounded-full"></div>
+            </div>
+          </div>
+        </motion.div>
         {/* Left Section */}
         <motion.div
           initial={{ opacity: 0, x: -80 }}
@@ -172,7 +188,7 @@ const Login = () => {
           initial={{ opacity: 0, x: 80 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="md:w-1/2 bg-red-500 p-8 text-white flex flex-col justify-center items-center "
+          className="md:w-1/2 bg-red-500 p-8 text-white md:flex flex-col justify-center items-center hidden "
         >
           <h2 className="text-xl font-semibold mb-4 text-center">
             Welcome to DevHire

@@ -1,6 +1,60 @@
+"use client";
+import socket from "@/lib/socket";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function JobListings() {
+  const [jobs, setJobs] = useState([
+    {
+      title: "Director, Product Marketing",
+      location: "US National",
+      work_mode: "100% Remote Work",
+      jobType: "Full-Time",
+    },
+    {
+      title: "Chemist IV",
+      location: "Milton, WI",
+      work_mode: "Option for Remote Work",
+      jobType: "Full-Time",
+    },
+    {
+      title: "Global Product Line Director",
+      location: "US National",
+      work_mode: "100% Remote Work",
+      jobType: "Full-Time",
+    },
+    {
+      title: "Accounts Payable Supervisor",
+      location: "El Segundo, CA",
+      work_mode: "Hybrid Remote Work",
+      jobType: "Full-Time",
+    },
+    {
+      title: "Senior Category Manager - Commodity Lumber",
+      location: "US National",
+      work_mode: "100% Remote Work",
+      jobType: "Full-Time",
+    },
+    {
+      title: "Assistant Accountant",
+      location: "Clayton, MO",
+      work_mode: "Hybrid Remote Work",
+      jobType: "Full-Time",
+    },
+  ]);
+
+  useEffect(() => {
+    socket.on("searchResults", (data) => {
+      if (data.length > 0) {
+        setJobs(data); // Update only if new data is received
+      }
+
+      return () => {
+        socket.off("searchResults");
+      };
+    });
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0, x: 20 }}
@@ -11,55 +65,18 @@ export default function JobListings() {
         {/* Header Section */}
         <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-900">
-            Featuring <span className="text-red-600 underline">100k+</span>
+            Featuring <span className="text-red-600 underline">Best</span>
             Remote & Flexible Jobs
           </h2>
         </div>
 
         {/* Job Listings */}
-        <div className="relative mt-8 ">
+        <div className="relative mt-8">
           <button className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 rounded-full">
             ◀
           </button>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Director, Product Marketing",
-                location: "US National",
-                remoteType: "100% Remote Work",
-                jobType: "Full-Time",
-              },
-              {
-                title: "Chemist IV",
-                location: "Milton, WI",
-                remoteType: "Option for Remote Work",
-                jobType: "Full-Time",
-              },
-              {
-                title: "Global Product Line Director",
-                location: "US National",
-                remoteType: "100% Remote Work",
-                jobType: "Full-Time",
-              },
-              {
-                title: "Accounts Payable Supervisor",
-                location: "El Segundo, CA",
-                remoteType: "Hybrid Remote Work",
-                jobType: "Full-Time",
-              },
-              {
-                title: "Senior Category Manager - Commodity Lumber",
-                location: "US National",
-                remoteType: "100% Remote Work",
-                jobType: "Full-Time",
-              },
-              {
-                title: "Assistant Accountant",
-                location: "Clayton, MO",
-                remoteType: "Hybrid Remote Work",
-                jobType: "Full-Time",
-              },
-            ].map((job, index) => (
+            {jobs.map((job, index) => (
               <div
                 key={index}
                 className="bg-white shadow-lg rounded-xl p-6 text-center transition duration-300"
@@ -72,7 +89,7 @@ export default function JobListings() {
                 </h3>
                 <div className="mt-4">
                   <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
-                    {job.remoteType}
+                    {job.work_mode}
                   </span>
                   <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm ml-2">
                     {job.jobType}

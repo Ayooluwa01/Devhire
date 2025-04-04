@@ -13,14 +13,7 @@ import {
   BriefcaseIcon,
   UserIcon,
 } from "@heroicons/react/24/solid";
-// import jobImage from "@/public/jobseeker.jpg";
-
-// socket.emit("message", "Hello Socket");
-// socket.emit("message2", "Hello Socket2");
-
-// socket.on('res',(res) =>{
-//   console.log("From server:",res)
-// })
+import { useState } from "react";
 
 export default function Home() {
   return (
