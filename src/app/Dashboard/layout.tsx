@@ -67,7 +67,7 @@ export default function DashboardLayout({
           <main className="flex-1 p-6 flex flex-col h-screen">
             <div className="mb-4">{children}</div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 flex-1 md:overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-3 flex-1 overflow-hidden">
               {/* Jobs Section - Adjust width dynamically */}
               <section
                 className={`overflow-y-scroll h-full scrollbar-none ${
@@ -79,7 +79,7 @@ export default function DashboardLayout({
 
               {/* Sidebar Logic */}
               {!hideSidebar && (
-                <aside className="hidden lg:block lg:col-span-1 h-full overflow-auto">
+                <aside className="hidden md:block md:col-span-1 h-full overflow-auto">
                   {showJobListing ? joblistings : showFilters ? Filters : null}
                 </aside>
               )}
