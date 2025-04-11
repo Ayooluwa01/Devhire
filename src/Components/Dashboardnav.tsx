@@ -9,13 +9,37 @@ import {
 } from "@heroicons/react/24/solid";
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Redux/store";
+import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
+import axios from "axios";
+import { logout, removeToken } from "@/Redux/Tokenslice";
 
 export default function Navbar() {
   const [click, setClick] = useState(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
   const userProfile = useSelector((state: RootState) => state.Token.userbio);
-
+  const handleLogout = async () => {
+    try {
+      document.cookie = "next-auth.session-token=; max-age=0; path=/";
+      document.cookie = "role=; max-age=0; path=/";
+      await signOut({ redirect: false });
+      await axios.post(
+        "http://192.168.122.198:9000/logout",
+        {},
+        { withCredentials: true }
+      );
+      setClick((prev) => !prev);
+      router.push("/login");
+      window.location.reload();
+      dispatch(logout());
+      dispatch(removeToken());
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
   // const [text] = useTypewriter({
   //   words: [
   //     "WELCOME TO DEVHIRE - A PLATFORM FOR DEVELOPERS TO GET JOBS WITH EASE",
@@ -62,7 +86,6 @@ export default function Navbar() {
           <Link href="#" className="hover:text-red-500">
             CHATS
           </Link>
-          <Link href="#" className="hover:text-red-500"></Link>
         </div>
 
         {/* Right Section */}
@@ -160,7 +183,7 @@ export default function Navbar() {
               <Link
                 href="#"
                 className="hover:text-red-600 font-medium"
-                onClick={toggleMenu}
+                onClick={handleLogout}
               >
                 LOG OUT
               </Link>

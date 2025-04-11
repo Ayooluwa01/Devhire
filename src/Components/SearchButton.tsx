@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import socket from "@/lib/socket";
@@ -7,7 +8,6 @@ export default function SearchForm() {
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
     socket.emit("Search", searchTerm as any);
   };
 

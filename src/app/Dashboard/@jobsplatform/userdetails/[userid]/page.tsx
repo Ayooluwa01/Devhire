@@ -1,12 +1,14 @@
 "use client";
+import { Button } from "@/Components/ui/button";
 import Workexperiencecard from "@/Components/Workexperince";
-import socket from "@/lib/socket";
 import { RootState } from "@/Redux/store";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 export default function Userdetailpage() {
+  const router = useRouter();
   const [profilebtn, setprofilebtn] = useState(false);
   const userProfile = useSelector(
     (state: RootState) => state.Token.userprofile
@@ -19,6 +21,10 @@ export default function Userdetailpage() {
     }
   }, [userBio]); // Only run this effect when userBio changes
 
+  const route = () => {
+    router.push("/Dashboard/profile");
+    console.log("clicked");
+  };
   return (
     <div>
       <div></div>
@@ -31,16 +37,16 @@ export default function Userdetailpage() {
         <div>
           <h2 className="text-lg font-semibold">{userProfile.name}</h2>
           <p className="text-gray-500">{userProfile.role}</p>
-          {profilebtn && (
-            <p className="text-white bg-blue-600 cursor-pointer rounded-lg px-4 py-2 hover:bg-blue-700 transition-colors">
-              <Link href="/Dashboard/profile">Complete your Profile</Link>
-            </p>
-          )}
         </div>
       </div>
 
-      <div className="border-2 border-gray-100 my-7"></div>
-
+      <div className="border-2 border-gray-100 my-7">
+        {profilebtn && (
+          <p className="text-white cursor-pointer rounded-lg px-4 py-2 hover:bg-blue-700 transition-colors">
+            <Button onClick={route}> Complete your Profile</Button>
+          </p>
+        )}
+      </div>
       {/* Bio */}
 
       <div>
@@ -69,7 +75,7 @@ export function Skillsection() {
     skills = userBio.skills
       .replace(/[{}"]/g, "") // Remove `{}`, and extra `"`
       .split(",") // Split into an array
-      .map((skill) => skill.trim()); // Trim spaces
+      .map((skill: string) => skill.trim()); // Trim spaces
   } else if (Array.isArray(userBio.skills)) {
     skills = userBio.skills;
   }

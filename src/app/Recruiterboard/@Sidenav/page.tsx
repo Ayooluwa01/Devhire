@@ -25,7 +25,7 @@ export default function Sidenav() {
     },
     {
       name: "Applications",
-      link: "/",
+      link: "/Recruiterboard/Applicants",
       icon: <FileText className="w-5 h-5 inline mr-2" />,
     },
     {

@@ -7,7 +7,9 @@ export default async function Editjobs({
     job: string;
   };
 }) {
-  const res = await fetch(`http://localhost:3000/api/joblisting/${params.job}`);
+  const res = await fetch(
+    `http://192.168.122.198:3000/api/joblisting/${params.job}`
+  );
 
   if (!res.ok) {
     return <div className="text-center text-red-500">Job not found</div>;

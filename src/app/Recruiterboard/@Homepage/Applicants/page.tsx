@@ -1,29 +1,43 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { Bell, MessageCircle, PhoneCall } from "lucide-react";
 import socket from "@/lib/socket";
-import { useSelector } from "react-redux";
 import { RootState } from "@/Redux/store";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
-export default function ApplicantsList() {
+type Applicant = {
+  email: string;
+  img?: string;
+  applicant_name: string;
+  title: string;
+};
+
+export default function ApplicantsPage() {
+  return (
+    <div>
+      <AllApplicantsList />
+    </div>
+  );
+}
+
+export function AllApplicantsList() {
   const userid = useSelector((state: RootState) => state.Token.userbio);
-  const [applicantdata, setApplicatdata] = useState([]);
+  const [applicantdata, setApplicatdata] = useState<Applicant[]>([]);
 
   useEffect(() => {
     if (!userid?.user_id) return;
-    socket.emit("employerConnect", userid.user_id);
-    socket.emit("getapplicants", userid.user_id);
 
-    socket.on("applicants", (data) => {
+    socket.emit("employerConnect", userid.user_id);
+    socket.emit("getallapplicants", userid.user_id);
+
+    socket.on("allapplicants", (data: Applicant[]) => {
       setApplicatdata(data);
     });
 
     return () => {
-      socket.off("getapplicants");
-      socket.off("applicants");
+      socket.off("allapplicants");
     };
-  }, [userid.user_id]);
+  }, [userid?.user_id]);
 
   return (
     <div className="flex bg-gray-100 p-6 rounded-lg shadow-lg w-full max-w-3xl mx-auto relative">
@@ -37,7 +51,7 @@ export default function ApplicantsList() {
               key={index}
               href={{
                 pathname: `/Recruiterboard/Applicants/Applicationdetails/${applicant.email}`,
-                query: { details: JSON.stringify(applicant) }, // Send only that applicant's data
+                query: { details: JSON.stringify(applicant) },
               }}
             >
               <div className="flex items-center gap-4 p-2 hover:bg-gray-100 rounded-lg">
@@ -62,5 +76,3 @@ export default function ApplicantsList() {
     </div>
   );
 }
-
-

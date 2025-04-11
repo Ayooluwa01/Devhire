@@ -16,7 +16,14 @@ const Login = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const apiUrls = {
+    local: "http://localhost:9000",
+    phone: "http://192.168.122.198:9000",
+    ngrok: "https://your-ngrok-url.ngrok.io",
+    production: "https://api.yourdomain.com",
+  };
 
+  const API_URL = apiUrls.local;
   useEffect(() => {
     const checkAuth = async () => {
       if (status === "authenticated") {
@@ -27,7 +34,7 @@ const Login = () => {
             // Add other necessary form data fields here
           };
 
-          const res = await axios.post("http://localhost:9000/auth", formData, {
+          const res = await axios.post(`${API_URL}/auth`, formData, {
             withCredentials: true, // Allows cookies to be sent
           });
 
@@ -53,7 +60,7 @@ const Login = () => {
       if (!formData.email || !formData.password) {
         setError(true as any);
       } else {
-        const res = await axios.post("http://localhost:9000/login", formData, {
+        const res = await axios.post(`${API_URL}/login`, formData, {
           withCredentials: true, // Allows cookies to be sent
         });
         // console.log("this is the token :", res.data);

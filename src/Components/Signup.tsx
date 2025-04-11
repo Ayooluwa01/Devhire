@@ -18,7 +18,14 @@ const SignUp = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const apiUrls = {
+    local: "http://localhost:9000",
+    phone: "http://192.168.122.198:9000",
+    ngrok: "https://your-ngrok-url.ngrok.io",
+    production: "https://api.yourdomain.com",
+  };
 
+  const API_URL = apiUrls.local;
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -33,7 +40,7 @@ const SignUp = () => {
         console.log("error");
         setError(true as any);
       } else {
-        const res = await axios.post("http://localhost:9000/signup", formData);
+        const res = await axios.post(`${API_URL}/signup`, formData);
         if (res) {
           router.push("/login");
         }

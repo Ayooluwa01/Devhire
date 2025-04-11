@@ -1,10 +1,8 @@
 "use client"; // Mark this as a Client Component
-import { io } from "socket.io-client";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Redux/store";
-
-const socket = io("http://localhost:9000"); // Fix incorrect URL
+import socket from "@/lib/socket";
 
 export default function JobDetailsClient({ details, jobId }: any) {
   const [saved, setSaved] = useState(false);
@@ -85,7 +83,7 @@ export default function JobDetailsClient({ details, jobId }: any) {
           </span>
           <span
             className="inline-block text-lg font-semibold text-white bg-green-500 px-3 py-3 cursor-pointer rounded-md ml-2"
-            onClick={savejob}
+            onClick={applyjob}
           >
             Apply Job
           </span>

@@ -13,10 +13,7 @@ import { AnimatePresence, motion } from "framer-motion";
 export default function Navbar() {
   const [click, setClick] = useState(false);
   const [text] = useTypewriter({
-    words: [
-      "WELCOME TO DEVHIRE - A PLATFORM FOR DEVELOPERS TO GET JOBS WITH EASE",
-      "DEVHIRE - A PLACE MEANT TO BE",
-    ],
+    words: ["WELCOME TO DEVHIRE "],
     loop: 0,
   });
 

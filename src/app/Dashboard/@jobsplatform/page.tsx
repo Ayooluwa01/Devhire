@@ -1,7 +1,6 @@
 "use client";
 import JobCard from "@/Components/JobCard";
 import { useEffect, useState } from "react";
-import { io } from "socket.io-client";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/autoplay";

@@ -1,18 +1,30 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { Bell, MessageCircle, PhoneCall } from "lucide-react";
-
-const applicants = [
-  { name: "Rebecca H Haubrich", role: "Product Designer", img: "" },
-  { name: "Juliana Yeterian", role: "Full Stack Developer", img: "" },
-  { name: "Golf Manor", role: "Team Lead", img: "" },
-  { name: "Lake Preston", role: "AngularJS Developer", img: "" },
-  { name: "Teresita Ramos", role: "UI Designer", img: "" },
-  { name: "Augustine S Jakes", role: "Frontend Developer", img: "" },
-  { name: "Claude B Robinson", role: "Product Designer", img: "" },
-  { name: "Robert S Luevano", role: "UX Designer", img: "" },
-];
+import socket from "@/lib/socket";
+import { useSelector } from "react-redux";
+import { RootState } from "@/Redux/store";
 
 export default function DefaultApplicantsList() {
+  const userid = useSelector((state: RootState) => state.Token.userbio);
+  const [applicantdata, setApplicatdata] = useState([]);
+
+  useEffect(() => {
+    if (!userid?.user_id) return;
+    socket.emit("employerConnect", userid.user_id);
+
+    socket.emit("getapplicants", userid.user_id);
+    socket.on("applicants", (data) => {
+      console.log("Here is the recieved data", data);
+      setApplicatdata(data);
+    });
+
+    return () => {
+      socket.off("getapplicants"); // Cleanup event listener if needed
+      socket.off("applicants");
+    };
+  }, [userid.user_id, socket]);
+
   return (
     <div className="flex bg-gray-100 p-6 rounded-lg shadow-lg w-full max-w-3xl mx-auto relative">
       {/* Left Section: Applicants List */}
@@ -20,7 +32,7 @@ export default function DefaultApplicantsList() {
         <h2 className="text-xl font-semibold text-gray-700">New Applicants</h2>
         <p className="text-gray-500 text-sm">Today</p>
         <div className="mt-4 space-y-4">
-          {applicants.map((applicant, index) => (
+          {applicantdata.map((applicant, index) => (
             <div
               key={index}
               className="flex items-center gap-4 p-2 hover:bg-gray-100 rounded-lg"
@@ -31,9 +43,11 @@ export default function DefaultApplicantsList() {
                 className="w-10 h-10 rounded-full object-cover"
               />
               <div>
-                <p className="font-medium text-gray-800">{applicant.name}</p>
+                <p className="font-medium text-gray-800">
+                  {applicant.applicant_name}
+                </p>
                 <p className="text-sm text-gray-500">
-                  Applied for {applicant.role}
+                  Applied for {applicant.title}
                 </p>
               </div>
             </div>

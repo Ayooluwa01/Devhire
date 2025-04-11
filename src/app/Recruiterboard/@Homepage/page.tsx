@@ -1,8 +1,24 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { Briefcase, Edit, PlusCircle, Users } from "lucide-react";
 import Link from "next/link";
+import socket from "@/lib/socket";
+import { useSelector } from "react-redux";
+import { RootState } from "@/Redux/store";
 
 export default function Homepage() {
+  const userid = useSelector((state: RootState) => state.Token.userbio);
+  const [numberofjobs, setnumberofjobs] = useState();
+  useEffect(() => {
+    socket.emit("Totalofalljobs", userid.user_id);
+    socket.on("Totalofjobs", (numberofjobs) => {
+      setnumberofjobs(numberofjobs);
+    });
+
+    return () => {
+      socket.off("Totalofjobs");
+    };
+  }, [socket]);
   return (
     <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-10">
       {/* Welcome Message */}
@@ -17,7 +33,9 @@ export default function Homepage() {
       {/* Job Posted Section */}
       <div className="bg-gray-200 p-6 rounded-lg shadow-md text-center">
         <h1 className="text-2xl font-bold text-gray-700">Job Posted</h1>
-        <p className="mt-2 text-xl font-semibold text-gray-800">0</p>
+        <p className="mt-2 text-xl font-semibold text-gray-800">
+          {numberofjobs}
+        </p>
         <p className="text-gray-600">Jobs Posted So Far</p>
       </div>
 

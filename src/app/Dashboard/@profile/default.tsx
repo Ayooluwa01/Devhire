@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -6,54 +7,65 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout, removeToken } from "@/Redux/Tokenslice";
 import axios from "axios";
 import { RootState } from "@/Redux/store";
+import { User, Settings, Bookmark, Briefcase, LogOut } from "lucide-react";
 
 export default function DefaultProfileSidebar() {
-  interface data {
-    bio: any;
-  }
   const userProfile = useSelector((state: RootState) => state.Token.userbio);
   const router = useRouter();
-
-  // console.log("token=", userProfile);
-  // console.log("userprofile : ", userProfile);
 
   const links = [
     {
       name: "Your Profile",
+      icon: <User className="w-5 h-5 mr-2" />,
       link: `/Dashboard/userdetails/${userProfile?.id || "id"}`,
     },
-    { name: "Your Settings", link: "/Dashboard/settings" },
-    { name: "Saved Jobs", link: "/Dashboard/Jobs/saved-jobs" },
-    { name: "Applied Jobs", link: "/Dashboard/applied-jobs" },
+    {
+      name: "Your Settings",
+      icon: <Settings className="w-5 h-5 mr-2" />,
+      link: "/Dashboard",
+    },
+    {
+      name: "Saved Jobs",
+      icon: <Bookmark className="w-5 h-5 mr-2" />,
+      link: "/Dashboard/Jobs/saved-jobs",
+    },
+    {
+      name: "Applied Jobs",
+      icon: <Briefcase className="w-5 h-5 mr-2" />,
+      link: "/Dashboard/Jobs/applied-jobs",
+    },
   ];
 
   return (
-    <div className="p-4 h-full py-9">
+    <div className="p-6 h-full bg-white shadow-lg rounded-2xl">
       <div className="text-center">
         <img
-          src="https://banner2.cleanpng.com/20180419/kje/kisspng-computer-icons-sport-clip-art-volleyball-player-5ad933de06ce78.8738085315241840300279.jpg"
+          src="https://i.pravatar.cc/150?img=3"
           alt="User"
-          className="w-16 h-16 rounded-full mx-auto"
+          className="w-20 h-20 rounded-full mx-auto shadow-md"
         />
-        <h2 className="text-lg font-semibold">
+        <h2 className="text-xl font-semibold mt-4">
           {userProfile?.name || "User Name"}
         </h2>
-        <p className="text-gray-500">{userProfile?.email || "User Role"}</p>
+        <p className="text-gray-500 text-sm">
+          {userProfile?.email || "user@email.com"}
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-7 py-8">
-        {links.map(({ name, link }) => (
+      <div className="mt-8 grid grid-cols-1 gap-4 space-y-9">
+        {links.map(({ name, link, icon }) => (
           <Link
             href={link}
             key={name}
-            className="block bg-red-400 text-white p-4 rounded text-center"
+            className="flex items-center  justify-start px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-red-400 hover:to-red-600 hover:text-white rounded-lg transition-all duration-300"
           >
-            {name}
+            {icon}
+            <span className="text-sm font-medium">{name}</span>
           </Link>
         ))}
       </div>
 
-      <div className="py-8">
+      <div className="mt-8">
         <LogoutButton />
       </div>
     </div>
@@ -76,6 +88,7 @@ export function LogoutButton() {
       );
 
       router.push("/login");
+      window.location.reload();
       dispatch(logout());
       dispatch(removeToken());
     } catch (error) {
@@ -84,13 +97,12 @@ export function LogoutButton() {
   };
 
   return (
-    <div className="flex items-center justify-center ">
-      <button
-        onClick={handleLogout}
-        className="cursor-pointer flex items-center justify-center px-6 py-3 bg-red-400 rounded-md shadow-md"
-      >
-        <h2 className="text-md text-white text-center font-semibold">Logout</h2>
-      </button>
-    </div>
+    <button
+      onClick={handleLogout}
+      className="flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-400 to-red-600 text-white font-medium rounded-lg hover:scale-105 transition-all duration-300 shadow-md"
+    >
+      <LogOut className="w-5 h-5 mr-2" />
+      Logout
+    </button>
   );
 }

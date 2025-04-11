@@ -13,7 +13,6 @@ import {
   BriefcaseIcon,
   UserIcon,
 } from "@heroicons/react/24/solid";
-import { useState } from "react";
 
 export default function Home() {
   return (

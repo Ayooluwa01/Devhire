@@ -42,7 +42,8 @@ export default function DashboardLayout({
   const hideSidebar =
     pathname === "/Dashboard/profile" ||
     pathname.startsWith("/Dashboard/userdetails/") ||
-    pathname === "/Dashboard/Jobs/saved-jobs";
+    pathname === "/Dashboard/Jobs/saved-jobs" ||
+    pathname === "/Dashboard/Jobs/applied-jobs";
 
   // Show Filters for all other `/Dashboard` pages
   const showFilters =
@@ -67,7 +68,7 @@ export default function DashboardLayout({
           <main className="flex-1 p-6 flex flex-col h-screen">
             <div className="mb-4">{children}</div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 flex-1 overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-3 flex-1 md:overflow-hidden">
               {/* Jobs Section - Adjust width dynamically */}
               <section
                 className={`overflow-y-scroll h-full scrollbar-none ${

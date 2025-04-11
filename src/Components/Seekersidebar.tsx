@@ -62,7 +62,7 @@ export function SeekerSidebar() {
     },
     {
       name: "Applied Jobs",
-      link: "/Dashboard/applied-jobs",
+      link: "/Dashboard/Jobs/applied-jobs",
       icon: <Star className="w-5 h-5 inline mr-2" />,
     },
   ];
