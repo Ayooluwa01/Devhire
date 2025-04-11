@@ -58,15 +58,15 @@ export default function DashboardLayout({
 
         <div className="flex flex-col md:flex-row h-screen">
           {/* Sidebar - Profile (Hidden on small screens) */}
-          <SidebarProvider className="md:hidden absolute ">
+          <SidebarProvider className="lg:hidden absolute ">
             <AppSidebar />
 
             <SidebarTrigger
-              className="md:hidden absolute right-0 top-0 z-40"
+              className="lg:hidden absolute right-0 top-0 z-40"
               onClick={visible}
             />
           </SidebarProvider>
-          <aside className="hidden md:block bg-white p-4 shadow relative h-screen md:w-1/4">
+          <aside className="hidden lg:block bg-white p-4 shadow relative h-screen md:w-1/4">
             {Sidenav}
           </aside>
 
@@ -74,7 +74,7 @@ export default function DashboardLayout({
           <main className="flex-1 p-6 flex flex-col h-screen">
             <div className="mb-4">{children}</div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 flex-1 ">
+            <div className="grid grid-cols-1 lg:grid-cols-3 md:overflow-hidden flex-1 ">
               {/* Jobs Section - Adjust width dynamically */}
               <section
                 className={`overflow-y-scroll h-full scrollbar-none ${
@@ -85,7 +85,7 @@ export default function DashboardLayout({
               </section>
 
               {/* Sidebar Logic - Visible only on larger screens */}
-              <aside className="hidden md:block md:col-span-1 h-full overflow-auto">
+              <aside className="hidden lg:block  h-full overflow-auto">
                 {/* {showJobListing ? joblistings : showFilters ? Filters : null} */}
                 {Rightnav}
               </aside>

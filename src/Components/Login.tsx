@@ -16,14 +16,14 @@ const Login = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const apiUrls = {
-    local: "http://localhost:9000",
-    phone: "http://192.168.122.198:9000",
-    ngrok: "https://your-ngrok-url.ngrok.io",
-    production: "https://api.yourdomain.com",
-  };
+  // const apiUrls = {
+  //   local: "http://localhost:9000",
+  //   phone: "http://192.168.208.198:9000",
+  //   ngrok: "https://your-ngrok-url.ngrok.io",
+  //   production: "https://devhire-backend-production.up.railway.app",
+  // };
 
-  const API_URL = apiUrls.local;
+  // const API_URL = apiUrls.production;
   useEffect(() => {
     const checkAuth = async () => {
       if (status === "authenticated") {
@@ -34,9 +34,13 @@ const Login = () => {
             // Add other necessary form data fields here
           };
 
-          const res = await axios.post(`${API_URL}/auth`, formData, {
-            withCredentials: true, // Allows cookies to be sent
-          });
+          const res = await axios.post(
+            `https://devhire-backend.onrender.com/auth`,
+            formData,
+            {
+              withCredentials: true, // Allows cookies to be sent
+            }
+          );
 
           if (res.status === 200) {
             // Redirect to Dashboard if login is successful
@@ -55,19 +59,23 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       if (!formData.email || !formData.password) {
         setError(true as any);
       } else {
-        const res = await axios.post(`${API_URL}/login`, formData, {
-          withCredentials: true, // Allows cookies to be sent
-        });
-        // console.log("this is the token :", res.data);
-        dispatch(storeToken(res.data));
+        const res = await axios.post(
+          `https://devhire-backend.onrender.com/login`,
+          formData,
+          {
+            withCredentials: true, // Allows cookies to be sent
+          }
+        );
 
-        router.push("/Dashboard");
-        setError(false as any);
+        if (res.status === 200) {
+          dispatch(storeToken(res.data));
+          router.push("/Dashboard");
+          setError(false as any);
+        }
       }
     } catch (err: any) {
       setError(err.response?.data?.message || "Login failed");
@@ -75,6 +83,7 @@ const Login = () => {
       setLoading(false);
     }
   };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className=" shadow-lg rounded-lg grid md:flex max-w-4xl w-full overflow-hidden">

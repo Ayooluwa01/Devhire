@@ -4,14 +4,34 @@ import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, removeToken } from "@/Redux/Tokenslice";
-import axios from "axios";
 import { RootState } from "@/Redux/store";
 import { Home, Briefcase, FileText, Star } from "lucide-react";
+import socket from "@/lib/socket";
+import Cookies from "js-cookie";
+
+import { useState, useEffect } from "react";
+import { Profilepicture } from "@/app/Dashboard/@profile/page";
 
 export default function DefaultSidenav() {
   const userProfile = useSelector((state: RootState) => state.Token.userbio);
-  const router = useRouter();
+  let userpics = useSelector((state: RootState) => state.Token.userprofile);
+  const dispatch = useDispatch();
 
+  const [profile, setProfile] = useState(userpics.Profilepicture);
+  useEffect(() => {
+    socket.on("ppics", (ppics) => {
+      setProfile(ppics);
+    });
+
+    // socket.on("Profile", (data) => {
+    //   dispatch(storeprofile(data));
+    // });
+
+    return () => {
+      socket.off("ppics");
+      socket.off("Profile");
+    };
+  }, [socket, dispatch, userProfile.user_id]);
   const links = [
     {
       name: "Dashboard",
@@ -38,17 +58,19 @@ export default function DefaultSidenav() {
   return (
     <div className="h-screen w-full bg-white shadow-lg left-0 top-0 p-6 flex flex-col justify-between">
       {/* User Profile */}
-      <div className="text-center ">
+      <div className="text-center">
         <img
-          src="https://banner2.cleanpng.com/20180419/kje/kisspng-computer-icons-sport-clip-art-volleyball-player-5ad933de06ce78.8738085315241840300279.jpg"
+          src={profile}
           alt="User"
-          className="w-20 h-20 rounded-full mx-auto border-2 border-gray-300"
+          className="w-20 h-20 rounded-full mx-auto shadow-md"
         />
-        <h2 className="text-lg font-semibold mt-3">
+
+        <Profilepicture userid={userProfile.user_id} />
+        <h2 className="text-xl font-semibold mt-4">
           {userProfile?.name || "User Name"}
         </h2>
         <p className="text-gray-500 text-sm">
-          {userProfile?.email || "User Role"}
+          {userProfile?.email || "user@email.com"}
         </p>
       </div>
 
@@ -78,15 +100,16 @@ function LogoutButton() {
   const handleLogout = async () => {
     try {
       await signOut({ redirect: false });
-      await axios.post(
-        "http://localhost:9000/logout",
-        {},
-        { withCredentials: true }
-      );
-
+      // await axios.post(
+      //   "http://https://devhire-backend.onrender.com/logout",
+      //   {},
+      //   { withCredentials: true }
+      // );
+      Cookies.remove("next-auth.session-token", { path: "/" });
+      Cookies.remove("role", { path: "/" });
+      router.push("/login");
       dispatch(logout());
       dispatch(removeToken());
-      router.push("/login");
     } catch (error) {
       console.error("Logout failed:", error);
     }

@@ -15,7 +15,6 @@ export default function DefaultApplicantsList() {
 
     socket.emit("getapplicants", userid.user_id);
     socket.on("applicants", (data) => {
-      console.log("Here is the recieved data", data);
       setApplicatdata(data);
     });
 

@@ -13,24 +13,24 @@ export default function Userdetailpage() {
   const userProfile = useSelector(
     (state: RootState) => state.Token.userprofile
   );
-  const userBio = useSelector((state: RootState) => state.Token.userprofile);
-
-  useEffect(() => {
-    if (!userBio?.bio) {
-      setprofilebtn(true); // Set the button to true if bio is missing
-    }
-  }, [userBio]); // Only run this effect when userBio changes
+  const userBio = useSelector((state: RootState) => state.Token.userprofile); // Only run this effect when userBio changes
 
   const route = () => {
     router.push("/Dashboard/profile");
-    console.log("clicked");
   };
+  useEffect(() => {
+    if (!userBio?.bio) {
+      setprofilebtn(true);
+      // Set the button to true if bio is missing
+      router.push("/Dashboard/profile");
+    }
+  }, [userBio]);
   return (
     <div>
       <div></div>
       <div className="flex items-center space-x-4 gap-y-7">
         <img
-          src="https://banner2.cleanpng.com/20180419/kje/kisspng-computer-icons-sport-clip-art-volleyball-player-5ad933de06ce78.8738085315241840300279.jpg"
+          src={userBio.Profilepicture}
           alt="User"
           className="w-16 h-16 rounded-full"
         />
@@ -41,11 +41,7 @@ export default function Userdetailpage() {
       </div>
 
       <div className="border-2 border-gray-100 my-7">
-        {profilebtn && (
-          <p className="text-white cursor-pointer rounded-lg px-4 py-2 hover:bg-blue-700 transition-colors">
-            <Button onClick={route}> Complete your Profile</Button>
-          </p>
-        )}
+        {profilebtn && <Button onClick={route}> Complete your Profile</Button>}
       </div>
       {/* Bio */}
 
@@ -126,15 +122,10 @@ export function Education() {
   if (typeof userBio?.education === "string") {
     try {
       education = JSON.parse(userBio.education);
-      console.log("Parsed Education Data:", education);
-    } catch (error) {
-      console.error("Error parsing education data:", error);
-    }
+    } catch (error) {}
   } else if (Array.isArray(userBio?.education)) {
     education = userBio.education;
   }
-
-  console.log("Final Education Array:", education);
 
   return (
     <div>

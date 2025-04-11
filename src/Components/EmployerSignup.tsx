@@ -48,7 +48,7 @@ const EmployerSignUp = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:9000/Employersignup",
+        "https://devhire-backend.onrender.com/Employersignup",
         formData
       );
       if (res.status === 200 || res.status === 201) {

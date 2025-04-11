@@ -23,17 +23,19 @@ export default function Navbar() {
   const userProfile = useSelector((state: RootState) => state.Token.userbio);
   const handleLogout = async () => {
     try {
+      router.push("/login");
+
+      console.log("clicked");
       document.cookie = "next-auth.session-token=; max-age=0; path=/";
       document.cookie = "role=; max-age=0; path=/";
       await signOut({ redirect: false });
       await axios.post(
-        "http://192.168.122.198:9000/logout",
+        "https://devhire-backend.onrender.com/logout",
         {},
         { withCredentials: true }
       );
       setClick((prev) => !prev);
-      router.push("/login");
-      window.location.reload();
+      // window.location.reload();
       dispatch(logout());
       dispatch(removeToken());
     } catch (error) {
@@ -93,11 +95,11 @@ export default function Navbar() {
           <Link href="#" className="hover:text-red-500 py-2">
             FACEBOOK
           </Link>
-          <Link href="/login" className="hover:text-red-500 py-2">
+          <Link href="#" className="hover:text-red-500 py-2">
             LINKELDN
           </Link>
           <Link
-            href="/Signup"
+            href="#"
             className="bg-red-600 px-4 py-2 rounded hover:bg-red-700"
           >
             GITHUB
@@ -180,13 +182,12 @@ export default function Navbar() {
               >
                 APPLIED JOBS
               </Link> */}
-              <Link
-                href="#"
-                className="hover:text-red-600 font-medium"
+              <p
+                className="hover:text-red-600 font-medium z-[999]"
                 onClick={handleLogout}
               >
                 LOG OUT
-              </Link>
+              </p>
             </nav>
           </motion.div>
         )}

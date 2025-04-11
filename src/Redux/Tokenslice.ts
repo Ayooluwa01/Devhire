@@ -1,57 +1,134 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
 const initialState = {
-  userprofile: {} as any, // Stores decoded token data
+  userprofile: {},
   token: null,
   userbio: [],
   error: "",
+  role: "",
+  profile: {},
 };
 
 const tokenslice = createSlice({
   name: "Tokenslice",
   initialState,
   reducers: {
-    storeprofile: (state, action) => {
-      state.userprofile = action.payload; // Store user data
-    },
-    logout: (state) => {
-      state.userprofile = {}; // Reset user profile on logout
-      state.token = null;
-      state.userbio = [];
-    },
+    // storeToken: (state, action) => {
+    //   if (
+    //     action.payload &&
+    //     typeof action.payload === "object" &&
+    //     "token" in action.payload
+    //   ) {
+    //     state.token = action.payload.token;
+    //   } else {
+    //     console.error("Invalid token format:", action.payload);
+    //     state.token = null;
+    //     state.userbio = [];
+    //     return;
+    //   }
+
+    //   try {
+    //     // Decode the token to get the user info
+    //     const decoded = jwtDecode(state.token);
+    //     state.userbio = decoded;
+
+    //   } catch (error) {
+    //     state.userbio = [];
+    //   }
+    // },
+
+    // storeToken: (state, action) => {
+    //   if (action.payload && typeof action.payload === "object" && "token" in action.payload) {
+    //     state.token = action.payload.token;
+    //   } else {
+    //     console.error("Invalid token format:", action.payload);
+    //     state.token = null;
+    //     state.userbio = [];
+    //     return;
+    //   }
+
+    //   if (state.token) {
+    //     try {
+    //       state.userbio = jwtDecode(state.token); // Decode the token only if it's not null
+    //       console.log("this is userbio", state.userbio);
+
+    // state.role = state.userbio.role;
+
+    // // Store the role in a cookie for use in middleware
+    // setCookie("role", state.role, {
+    //   httpOnly: false, // You can set this true if you don't need to access it client-side
+    //   secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+    //   sameSite: "Lax",
+    // });
+
+    //     } catch (error) {
+    //       console.error("Error decoding token", error);
+    //       state.userbio = [];
+    //     }
+    //   } else {
+    //     console.error("Token is null or undefined");
+    //     state.userbio = [];
+    //   }
+    // },
+
     storeToken: (state, action) => {
-      // Ensure action.payload is an object and contains the token key
       if (
         action.payload &&
         typeof action.payload === "object" &&
         "token" in action.payload
       ) {
-        state.token = action.payload.token; // Extract the actual token string
+        state.token = action.payload.token;
       } else {
         console.error("Invalid token format:", action.payload);
         state.token = null;
         state.userbio = [];
-        return; // Exit function to prevent decoding error
+        return;
       }
 
-      try {
-        state.userbio = jwtDecode(state.token as any); // Decode only if token is valid
-      } catch (error) {
+      if (state.token) {
+        try {
+          // Decode the token only if it's not null
+          state.userbio = jwtDecode(state.token);
+
+          // Assign the role if it exists in the decoded token
+          state.role = state.userbio?.role || "";
+
+          // Store the role in a cookie for use in middleware
+          Cookies.set("role", state.role, {
+            httpOnly: false, // You can set this true if you don't need to access it client-side
+            secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+            sameSite: "Lax",
+          });
+        } catch (error) {
+          state.userbio = [];
+        }
+      } else {
         state.userbio = [];
       }
     },
 
+    logout: (state) => {
+      state.userprofile = {}; // Reset user profile on logout
+      state.token = null;
+      state.userbio = [];
+    },
     removeToken: (state) => {
-      (state.token = null), (state.userbio = []);
+      state.token = null;
+      state.userbio = [];
+      state.role = "";
     },
 
     showError: (state, action) => {
       state.error = action.payload;
     },
+    storeprofile: (state, action) => {
+      state.userprofile = action.payload;
+    },
   },
 });
 
-export const { storeprofile, logout, storeToken, removeToken, showError } =
+export const { storeToken, removeToken, logout, showError, storeprofile } =
   tokenslice.actions;
 export default tokenslice.reducer;

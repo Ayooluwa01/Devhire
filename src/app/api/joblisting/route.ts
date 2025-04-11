@@ -8,7 +8,7 @@ export async function GET() {
   // console.log("filters:", job);
   // const filters = useSelector((state: RootState) => state.Filter);
 
-  const res = await fetch("http://localhost:9000/Joblistings");
+  const res = await fetch(`${process.env.BACKEND_URL}/Joblistings`);
 
   const jobs = await res.json();
   // const filters = useSelector((state: RootState) => state.Filter);

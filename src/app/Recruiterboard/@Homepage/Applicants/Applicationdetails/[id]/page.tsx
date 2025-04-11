@@ -1,11 +1,55 @@
 "use client";
 
+import socket from "@/lib/socket";
 import { useSearchParams } from "next/navigation";
+import {
+  JSXElementConstructor,
+  Key,
+  ReactElement,
+  ReactNode,
+  ReactPortal,
+  useEffect,
+  useState,
+} from "react";
 
 export default function Page() {
   const searchParams = useSearchParams();
   const detailsString = searchParams.get("details");
+  console.log(detailsString);
   const details = detailsString ? JSON.parse(detailsString) : null;
+
+  const [applicant, setApplicant] = useState([]);
+
+  useEffect(() => {
+    // Emit request to server
+    socket.emit("applicantdetail", details.applicant_email);
+
+    // Handle response from server
+    const handleApplicantData = (data: any) => {
+      setApplicant(data); // Store applicant data in state
+    };
+
+    // Listen for event
+    socket.on("applicantdata", handleApplicantData);
+
+    // Cleanup to avoid memory leak
+    return () => {
+      socket.off("applicantdata", handleApplicantData);
+    };
+  }, [socket, details.applicant_email]);
+
+  const education = applicant.education ? JSON.parse(applicant.education) : [];
+  const experience = applicant.experience
+    ? JSON.parse(applicant.experience)
+    : [];
+  const skills = applicant.skills
+    ? JSON.parse(
+        applicant.skills
+          .replace(/'/g, '"')
+          .replace(/{/g, "[")
+          .replace(/}/g, "]")
+      )
+    : [];
 
   if (!details) {
     return (
@@ -102,24 +146,209 @@ export default function Page() {
           </p>
         </div>
 
-        {/* APPLICANT DETAILS */}
-        <h2 className="text-lg md:text-2xl font-bold text-center text-gray-700 border-b pt-6 pb-2">
-          APPLICANT DETAILS
-        </h2>
+        {/*  */}
+        <div className="p-4">
+          <h2 className="text-lg md:text-2xl font-bold text-center text-gray-700 border-b pt-6 pb-2">
+            APPLICANT DETAILS
+          </h2>
 
-        <div className="flex flex-col md:flex-row items-center gap-4">
-          <img
-            src={details.imglink || "https://via.placeholder.com/100"}
-            alt="Applicant Image"
-            className="w-24 h-24 md:w-20 md:h-20 rounded-full object-cover"
-          />
-          <div className="text-center md:text-left">
-            <h2 className="text-xl font-bold">{details.applicant_name}</h2>
-            <p className="text-gray-500">{details.applicant_email}</p>
-            <p className="text-gray-500">{details.applicant_phone}</p>
+          <div className="flex flex-col md:flex-row items-center gap-4 py-4">
+            <img
+              src={
+                applicant.Profilepicture || "https://via.placeholder.com/100"
+              }
+              alt="Applicant"
+              className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover border"
+            />
+            <div className="text-center md:text-left">
+              <h2 className="text-xl font-bold">{applicant.name}</h2>
+              <p className="text-gray-500">{applicant.email}</p>
+              <p className="text-gray-500">{applicant.number}</p>
+              <p className="text-gray-500">{applicant.address}</p>
+            </div>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            <div>
+              <h3 className="font-semibold text-lg border-b pb-1">Bio</h3>
+              <p className="text-gray-600 mt-2">
+                {applicant.bio || "No bio available"}
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-lg border-b pb-1">Skills</h3>
+              <div className="flex flex-wrap gap-2 mt-2">
+                {skills.length > 0 ? (
+                  skills.map(
+                    (
+                      skill:
+                        | string
+                        | number
+                        | bigint
+                        | boolean
+                        | ReactElement<
+                            unknown,
+                            string | JSXElementConstructor<any>
+                          >
+                        | Iterable<ReactNode>
+                        | ReactPortal
+                        | Promise<
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | ReactPortal
+                            | ReactElement<
+                                unknown,
+                                string | JSXElementConstructor<any>
+                              >
+                            | Iterable<ReactNode>
+                            | null
+                            | undefined
+                          >
+                        | null
+                        | undefined,
+                      i: Key | null | undefined
+                    ) => (
+                      <span
+                        key={i}
+                        className="px-2 py-1 bg-gray-200 rounded text-sm"
+                      >
+                        {skill}
+                      </span>
+                    )
+                  )
+                ) : (
+                  <p className="text-gray-400">No skills listed</p>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-lg border-b pb-1">Education</h3>
+              {education.length > 0 ? (
+                education.map((edu, i) => (
+                  <div key={i} className="mt-2">
+                    <p className="font-medium">{edu.school}</p>
+                    <p className="text-gray-500">
+                      {edu.degree} — {edu.year}
+                    </p>
+                  </div>
+                ))
+              ) : (
+                <p className="text-gray-400">No education details</p>
+              )}
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-lg border-b pb-1">
+                Experience
+              </h3>
+              {experience.length > 0 ? (
+                experience.map(
+                  (
+                    exp: {
+                      company:
+                        | string
+                        | number
+                        | bigint
+                        | boolean
+                        | ReactElement<
+                            unknown,
+                            string | JSXElementConstructor<any>
+                          >
+                        | Iterable<ReactNode>
+                        | ReactPortal
+                        | Promise<
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | ReactPortal
+                            | ReactElement<
+                                unknown,
+                                string | JSXElementConstructor<any>
+                              >
+                            | Iterable<ReactNode>
+                            | null
+                            | undefined
+                          >
+                        | null
+                        | undefined;
+                      role:
+                        | string
+                        | number
+                        | bigint
+                        | boolean
+                        | ReactElement<
+                            unknown,
+                            string | JSXElementConstructor<any>
+                          >
+                        | Iterable<ReactNode>
+                        | ReactPortal
+                        | Promise<
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | ReactPortal
+                            | ReactElement<
+                                unknown,
+                                string | JSXElementConstructor<any>
+                              >
+                            | Iterable<ReactNode>
+                            | null
+                            | undefined
+                          >
+                        | null
+                        | undefined;
+                      duration:
+                        | string
+                        | number
+                        | bigint
+                        | boolean
+                        | ReactElement<
+                            unknown,
+                            string | JSXElementConstructor<any>
+                          >
+                        | Iterable<ReactNode>
+                        | ReactPortal
+                        | Promise<
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | ReactPortal
+                            | ReactElement<
+                                unknown,
+                                string | JSXElementConstructor<any>
+                              >
+                            | Iterable<ReactNode>
+                            | null
+                            | undefined
+                          >
+                        | null
+                        | undefined;
+                    },
+                    i: Key | null | undefined
+                  ) => (
+                    <div key={i} className="mt-2">
+                      <p className="font-medium">{exp.company}</p>
+                      <p className="text-gray-500">
+                        {exp.role} — {exp.duration}
+                      </p>
+                    </div>
+                  )
+                )
+              ) : (
+                <p className="text-gray-400">No experience listed</p>
+              )}
+            </div>
           </div>
         </div>
       </div>
+      {/*  */}
     </div>
   );
 }
