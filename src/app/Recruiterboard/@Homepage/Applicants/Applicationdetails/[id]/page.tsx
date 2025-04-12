@@ -15,7 +15,6 @@ import {
 export default function Page() {
   const searchParams = useSearchParams();
   const detailsString = searchParams.get("details");
-  console.log(detailsString);
   const details = detailsString ? JSON.parse(detailsString) : null;
 
   const [applicant, setApplicant] = useState([]);

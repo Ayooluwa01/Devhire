@@ -1,6 +1,7 @@
 "use client";
 
 import { Profilepicture } from "@/app/Dashboard/@profile/default";
+import { EmployerProfilepicture } from "@/app/Recruiterboard/@Sidenav/page";
 import {
   Sidebar,
   SidebarContent,
@@ -102,7 +103,7 @@ export function AppSidebar() {
                 className="w-20 h-20 rounded-full mx-auto shadow-md"
               />
 
-              <Profilepicture userid={userProfile.user_id} />
+              <EmployerProfilepicture userid={userProfile.user_id} />
               <h2 className="text-xl font-semibold mt-4">
                 {userProfile?.name || "User Name"}
               </h2>

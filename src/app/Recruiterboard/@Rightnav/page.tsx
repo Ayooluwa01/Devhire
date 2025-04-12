@@ -42,7 +42,9 @@ export default function ApplicantsList() {
             >
               <div className="flex items-center gap-4 p-2 hover:bg-gray-100 rounded-lg">
                 <img
-                  src={applicant.img || "https://via.placeholder.com/40"}
+                  src={
+                    applicant.Profilepicture || "https://via.placeholder.com/40"
+                  }
                   alt="Profile"
                   className="w-10 h-10 rounded-full object-cover"
                 />
@@ -62,5 +64,3 @@ export default function ApplicantsList() {
     </div>
   );
 }
-
-

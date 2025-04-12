@@ -146,7 +146,7 @@ export function JobForm() {
     socket.emit("Editjob", formData);
 
     socket.on("JobPostStatus", (data) => {
-      if (data.status === "success") {
+      if (data) {
         alert("Job posted successfully!");
         router.push("/Recruiterboard");
       } else {
