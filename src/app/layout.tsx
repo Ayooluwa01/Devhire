@@ -1,5 +1,21 @@
-"use client";
 import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Devhire",
+  description:
+    "Devhire is a powerful job platform designed to connect tech talent with top companies. Whether you're hiring developers or looking for your next remote or on-site opportunity, Devhire streamlines the recruitment process with intelligent matching and a seamless experience.",
+  icons: {
+    icon: "/logo.png", // Place this in your /public folder
+    shortcut: "/logo.png",
+    // apple: "/apple-touch-icon.png", // Optional for Apple devices
+    // other: {
+    //   rel: "mask-icon",
+    //   url: "/safari-pinned-tab.svg",
+    //   color: "#5bbad5",
+    // },
+  },
+};
+("use client");
 import { Provider } from "react-redux";
 import { store, persistor } from "../Redux/store";
 import { Poppins, Karla } from "next/font/google";
