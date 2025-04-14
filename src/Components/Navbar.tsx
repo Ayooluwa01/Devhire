@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import logo from "../Images/logo.png";
+// import logo from "/logo.png";
 import Link from "next/link";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 import {
@@ -38,13 +38,13 @@ export default function Navbar() {
       {/* Header */}
       <nav className="bg-white shadow-md p-3">
         <div className="flex flex-row items-center justify-center w-full sticky">
-          <Image
+          {/* <Image
             src={logo}
             width={20}
             height={80}
             alt="DevHire Logo"
             className="mr-4"
-          />
+          /> */}
           <div className="text-gray-700 text-lg font-medium text-center max-w-[70%]">
             {text} <Cursor cursorColor="red" />
           </div>
