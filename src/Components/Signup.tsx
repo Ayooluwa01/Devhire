@@ -4,6 +4,8 @@ import { signIn } from "next-auth/react";
 import axios from "axios";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 const SignUp = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -183,16 +185,16 @@ const SignUp = () => {
 
           <p className="text-sm text-gray-500 mt-4 text-center">
             Already have an account?
-            <a href="/login" className="text-blue-600">
+            <Link href="/login" className="text-blue-600">
               Log in
-            </a>
+            </Link>
           </p>
 
           <p className="text-sm text-blue-600 mt-4 text-center">
             Return to &nbsp;
-            <a href="/" className="text-blue-600">
+            <Link href="/" className="text-blue-600">
               Homepage
-            </a>
+            </Link>
           </p>
         </motion.div>
       </div>

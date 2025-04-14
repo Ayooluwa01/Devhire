@@ -8,14 +8,24 @@ import {
 } from "react";
 import { useSelector } from "react-redux";
 
-interface Experience {
+type userBio = {
   company: string;
   role: string;
   duration: string;
-}
+  experience: any;
+};
+const defaultUserBio: userBio = {
+  company: "Empty",
+  role: "Empty",
+  duration: "Empty",
+  experience: "Empty",
+};
 
 export default function WorkExperienceCard() {
-  const userBio = useSelector((state: RootState) => state.Token.userprofile);
+  const userBio = useSelector<RootState, userBio>(
+    (state) => state.Token.userprofile
+  );
+
   let experiences;
   if (userBio.experience) {
     try {

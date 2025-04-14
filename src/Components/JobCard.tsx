@@ -1,4 +1,4 @@
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 
 interface job {
@@ -22,6 +22,7 @@ export default function JobCard({ job }: { job: job }) {
               src={`${job.imglink}`}
               alt="Image"
               className="w-14"
+
               // className="w-16 h-16 left-0 relative rounded-full mx-auto"
             />
           </span>

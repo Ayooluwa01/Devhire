@@ -1,7 +1,6 @@
 "use client";
 
 import { RootState } from "@/Redux/store";
-import { storeToken } from "@/Redux/Tokenslice";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -121,7 +120,6 @@ const ProfileCompletion = () => {
   const userProfile = useSelector(
     (state: RootState) => state.Token.userprofile
   );
-  const dispatch = useDispatch();
   const router = useRouter();
 
   const email = userProfile?.email || "";

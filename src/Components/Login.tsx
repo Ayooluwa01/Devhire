@@ -6,6 +6,8 @@ import { storeToken } from "@/Redux/Tokenslice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
@@ -186,16 +188,16 @@ const Login = () => {
 
           <p className="text-sm text-gray-500 mt-4 text-center">
             Don't have an account?
-            <a href="/Signup" className="text-blue-600">
+            <Link href="/Signup" className="text-blue-600">
               Sign up
-            </a>
+            </Link>
           </p>
 
           <p className="text-sm text-blue-600 mt-4 text-center">
             Return to &nbsp;
-            <a href="/" className="text-blue-600">
+            <Link href="/" className="text-blue-600">
               Homepage
-            </a>
+            </Link>
           </p>
         </motion.div>
         {/* Right Section */}

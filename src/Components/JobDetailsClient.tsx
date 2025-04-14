@@ -1,12 +1,19 @@
 "use client"; // Mark this as a Client Component
 import { useState } from "react";
 import { useSelector } from "react-redux";
+// import Image from "next/image";
 import { RootState } from "@/Redux/store";
 import socket from "@/lib/socket";
 
+type User = {
+  user_id: any;
+  // other user properties...
+};
+
 export default function JobDetailsClient({ details, jobId }: any) {
   const [saved, setSaved] = useState(false);
-  const userid = useSelector((state: RootState) => state.Token.userbio);
+  const [applied, setapplied] = useState(false);
+  const userid = useSelector<RootState, User[]>((state) => state.Token.userbio);
   // const savejobdetails={jobId,userid.user_id}
 
   const ids = [jobId, userid.user_id];
@@ -17,6 +24,7 @@ export default function JobDetailsClient({ details, jobId }: any) {
 
   const applyjob = () => {
     socket.emit("applyingjob", ids);
+    setapplied(true);
   };
   return (
     <div className="container mx-auto p-6">
@@ -85,7 +93,7 @@ export default function JobDetailsClient({ details, jobId }: any) {
             className="inline-block text-lg font-semibold text-white bg-green-500 px-3 py-3 cursor-pointer rounded-md ml-2"
             onClick={applyjob}
           >
-            Apply Job
+            {applied ? "Applied" : "Apply Job"}
           </span>
         </p>
       </div>

@@ -1,12 +1,10 @@
 "use client";
-
 import { Profilepicture } from "@/app/Dashboard/@profile/default";
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -15,10 +13,9 @@ import {
 } from "@/Components/ui/sidebar";
 import socket from "@/lib/socket";
 import { RootState } from "@/Redux/store";
-import { logout, removeToken } from "@/Redux/Tokenslice";
-import axios from "axios";
-import { Home, Briefcase, FileText, Star, Menu } from "lucide-react";
-import { signOut } from "next-auth/react";
+// import { logout, removeToken } from "@/Redux/Tokenslice";
+import { Home, Briefcase, FileText, Star } from "lucide-react";
+// import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,7 +24,7 @@ export function SeekerSidebar() {
   const userProfile = useSelector((state: RootState) => state.Token.userbio);
   let userpics = useSelector((state: RootState) => state.Token.userprofile);
   const dispatch = useDispatch();
-  const router = useRouter();
+  // const router = useRouter();
 
   const [profile, setProfile] = useState(userpics.Profilepicture);
   useEffect(() => {
@@ -45,24 +42,24 @@ export function SeekerSidebar() {
     };
   }, [socket, dispatch, userProfile.user_id]);
 
-  const handleLogout = async () => {
-    try {
-      document.cookie = "next-auth.session-token=; max-age=0; path=/";
-      document.cookie = "role=; max-age=0; path=/";
-      await signOut({ redirect: false });
-      await axios.post(
-        "https://devhire-backend.onrender.com/logout",
-        {},
-        { withCredentials: true }
-      );
+  // const handleLogout = async () => {
+  //   try {
+  //     document.cookie = "next-auth.session-token=; max-age=0; path=/";
+  //     document.cookie = "role=; max-age=0; path=/";
+  //     await signOut({ redirect: false });
+  //     await axios.post(
+  //       "https://devhire-backend.onrender.com/logout",
+  //       {},
+  //       { withCredentials: true }
+  //     );
 
-      router.push("/login");
-      dispatch(logout());
-      dispatch(removeToken());
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
+  //     router.push("/login");
+  //     dispatch(logout());
+  //     dispatch(removeToken());
+  //   } catch (error) {
+  //     console.error("Logout failed:", error);
+  //   }
+  // };
 
   const items = [
     {

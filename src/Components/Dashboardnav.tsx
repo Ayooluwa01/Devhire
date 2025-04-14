@@ -1,41 +1,60 @@
 "use client";
-import Image from "next/image";
-import logo from "../Images/logo.png";
 import Link from "next/link";
-import { useTypewriter, Cursor } from "react-simple-typewriter";
 import {
   AdjustmentsHorizontalIcon,
   XCircleIcon,
 } from "@heroicons/react/24/solid";
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/Redux/store";
+import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
-import axios from "axios";
+import Cookies from "js-cookie";
+
+// import axios from "axios";
 import { logout, removeToken } from "@/Redux/Tokenslice";
 
 export default function Navbar() {
   const [click, setClick] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
-  const userProfile = useSelector((state: RootState) => state.Token.userbio);
+  // const userProfile = useSelector((state: RootState) => state.Token.userbio);
   const handleLogout = async () => {
-    try {
-      router.push("/login");
+    // try {
+    //   router.push("/login");
 
-      console.log("clicked");
+    //   console.log("clicked");
+    //   document.cookie = "next-auth.session-token=; max-age=0; path=/";
+    //   document.cookie = "role=; max-age=0; path=/";
+    //   await signOut({ redirect: false });
+    //   await axios.post(
+    //     "https://devhire-backend.onrender.com/logout",
+    //     {},
+    //     { withCredentials: true }
+    //   );
+    //   setClick((prev) => !prev);
+    //   // window.location.reload();
+    //   dispatch(logout());
+    //   dispatch(removeToken());
+    // } catch (error) {
+    //   console.error("Logout failed:", error);
+    // }
+
+    try {
       document.cookie = "next-auth.session-token=; max-age=0; path=/";
       document.cookie = "role=; max-age=0; path=/";
+      // await signOut({ redirect: false });
+      router.push("/login");
+
+      Cookies.remove("next-auth.session-token", { path: "/" });
+      Cookies.remove("role", { path: "/" });
       await signOut({ redirect: false });
-      await axios.post(
-        "https://devhire-backend.onrender.com/logout",
-        {},
-        { withCredentials: true }
-      );
-      setClick((prev) => !prev);
-      // window.location.reload();
+      // await axios.post(
+      //   "https://devhire-backend.onrender.com/logout",
+      //   {},
+      //   { withCredentials: true }
+      // );
+
       dispatch(logout());
       dispatch(removeToken());
     } catch (error) {
