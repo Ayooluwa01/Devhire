@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div>
-      <p>Hello</p>
+      <Homepage />
     </div>
   );
 }
