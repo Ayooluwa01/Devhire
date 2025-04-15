@@ -1,6 +1,5 @@
 "use client";
 
-import { EmployerProfilepicture } from "@/app/Recruiterboard/@Sidenav/page";
 import {
   Sidebar,
   SidebarContent,
@@ -18,9 +17,9 @@ import { RootState } from "@/Redux/store";
 // import { logout, removeToken } from "@/Redux/Tokenslice";
 import { Home, Briefcase, FileText, Star } from "lucide-react";
 // import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Employerpicture } from "./Employerprofilepics";
 
 export function AppSidebar() {
   const userProfile = useSelector((state: RootState) => state.Token.userbio);
@@ -120,7 +119,7 @@ export function AppSidebar() {
                 className="w-20 h-20 rounded-full mx-auto shadow-md"
               />
 
-              <EmployerProfilepicture userid={userProfile.user_id} />
+              <Employerpicture userid={userProfile.user_id} />
               <h2 className="text-xl font-semibold mt-4">
                 {userProfile?.name || "User Name"}
               </h2>

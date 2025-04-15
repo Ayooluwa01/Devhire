@@ -1,5 +1,4 @@
 "use client";
-import { Profilepicture } from "@/app/Dashboard/@profile/default";
 import {
   Sidebar,
   SidebarContent,
@@ -19,6 +18,7 @@ import { Home, Briefcase, FileText, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { USerProfilepicture } from "./Userprofile/userprofilepicture";
 
 export function SeekerSidebar() {
   const userProfile = useSelector((state: RootState) => state.Token.userbio);
@@ -98,7 +98,7 @@ export function SeekerSidebar() {
                 className="w-20 h-20 rounded-full mx-auto shadow-md"
               />
 
-              <Profilepicture userid={userProfile.user_id} />
+              <USerProfilepicture userid={userProfile.user_id} />
               <h2 className="text-xl font-semibold mt-4">
                 {userProfile?.name || "User Name"}
               </h2>
