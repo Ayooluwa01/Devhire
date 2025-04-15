@@ -1,14 +1,14 @@
 import EmployerSignUp from "@/Components/EmployerSignup";
 import Login from "@/Components/Login";
 import SignUp from "@/Components/Signup";
+import { use } from "react";
 
-interface Params {
-  auth: string;
-}
-
-export default function Page({ params }: { params: Params }) {
-  const auth = params.auth; // No need for `await` here, as `params.auth` is not a Promise.
-
+export default function Page({
+  params,
+}: {
+  params: Promise<{ auth: string }>;
+}) {
+  const { auth } = use(params);
   return (
     <div>
       {auth === "login" ? (
