@@ -4,8 +4,6 @@ import SearchButton from "@/Components/SearchButton";
 import Image from "next/image";
 import Man from "../Images/how-different.png";
 import lady from "../Images/banner.png";
-import JobListings from "@/Components/Joblisting";
-import Navbar from "@/Components/Navbar";
 import Link from "next/link";
 import { Footer } from "@/Components/ui/Footer";
 import {
@@ -13,128 +11,9 @@ import {
   BriefcaseIcon,
   UserIcon,
 } from "@heroicons/react/24/solid";
-
-export default function Home() {
-  return (
-    <>
-      <Navbar />
-
-      {/* <video controls className="w-screen">
-        <source src="/videos/vid.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video> */}
-
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        className="flex items-center justify-center px-8 my-4"
-      >
-        <div className="grid grid-cols-1   md:grid-cols-2 items-center text-center md:text-left gap-10 ">
-          {/* Left Section: Text Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="flex flex-col items-center md:items-start"
-          >
-            <div style={{ fontFamily: "var(--font-primary)", fontWeight: 700 }}>
-              <motion.p
-                initial={{ opacity: 0, y: -20 }}
-                // animate={{ opacity: 1, y: 0 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-2xl md:text-6xl"
-              >
-                Job Seeking made
-              </motion.p>
-              <motion.p
-                initial={{ opacity: 0, x: -10 }}
-                // animate={{ opacity: 1, y: 0 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="text-xl md:text-4xl py-2 text-gray-700"
-              >
-                Easy..........
-              </motion.p>
-            </div>
-
-            <motion.p
-              initial={{ opacity: 0, x: -20 }}
-              // animate={{ opacity: 1, y: 0 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="max-w-md mt-4 text-gray-600 text-lg"
-            >
-              The #1 Job Site to Find Remote Jobs. No Ads, Scams, or Junk Find
-              your next flexible, hybrid, or work from home job.
-            </motion.p>
-
-            {/* <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className="max-w-md mt-2 text-gray-600"
-            >
-            
-            </motion.p> */}
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 1 }}
-              className="mt-5"
-            >
-              <SearchButton />
-            </motion.div>
-          </motion.div>
-
-          {/* Right Section: Image */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            // animate={{ opacity: 1, x: 0 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            whileHover={{ scale: 1.1 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="flex justify-center "
-          >
-            <Image
-              src={lady}
-              width={600}
-              height={800}
-              alt="Job seeker"
-              className="rounded-lg"
-            />
-          </motion.div>
-        </div>
-      </motion.div>
-
-      {/* Employers & Candidates Section */}
-      {/* <EmployersCandidates /> */}
-
-      {/* Job Listings Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 3, ease: "easeOut" }}
-      >
-        <JobListings />
-        {/*  */}
-
-        <div className="text-center mt-8 ">
-          <div className="inline-block bg-red-500 text-white px-6 py-2 rounded-lg text-lg font-semibold">
-            Find Your Desired Job With Ease
-          </div>
-          <Roles />
-        </div>
-      </motion.div>
-
-      {/*  */}
-
-      <Footer />
-    </>
-  );
-}
+import Navbar from "@/Components/Navbar";
+import JobListings from "@/Components/Joblisting";
+import Head from "next/head";
 
 export function EmployersCandidates() {
   return (
@@ -155,11 +34,6 @@ export function EmployersCandidates() {
           whileHover={{ scale: 1.05 }}
           className="bg-orange-100 rounded-xl p-6 flex flex-col items-center text-center w-[30%]  shadow-md"
         >
-          <video className="w-screen" autoPlay muted loop>
-            <source src="/videos/vid.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-
           <h3 className="text-lg font-semibold text-gray-800 auth-role">
             For Employers
           </h3>
@@ -185,10 +59,10 @@ export function EmployersCandidates() {
           className="bg-green-100 rounded-xl p-6 flex flex-col items-center text-center w-[30%] shadow-md"
         >
           {/* <Image src={img} className="min-w-full h-full mb-3" alt="img" /> */}
-          <video className="w-screen" autoPlay muted loop>
+          {/* <video className="w-screen" autoPlay muted loop>
             <source src="/videos/vid.mp4" type="video/mp4" />
             Your browser does not support the video tag.
-          </video>
+          </video> */}
 
           <h3 className="text-lg font-semibold text-gray-800">
             For Candidates
@@ -338,14 +212,12 @@ export function Roles() {
           },
         ].map((role, index) => (
           <motion.div
+            key={index}
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 2, ease: "easeOut" }}
           >
-            <div
-              key={index}
-              className="bg-white shadow-xl rounded-xl p-6 w-80 text-center border border-gray-200 hover:shadow-2xl transition"
-            >
+            <div className="bg-white shadow-xl rounded-xl p-6 w-80 text-center border border-gray-200 hover:shadow-2xl transition">
               <div className="flex justify-center">{role.icon}</div>
               <h3 className="text-xl font-bold text-gray-900 mt-2">
                 {role.title}
@@ -361,5 +233,146 @@ export function Roles() {
         ))}
       </div>
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <>
+      <Head>
+        {/* Page-level metadata */}
+        <meta
+          name="description"
+          content="This is the description of my video page."
+        />
+        <meta name="keywords" content="video, web development, coding" />
+        <meta name="author" content="John Doe" />
+        <meta property="og:title" content="My Custom Video Page Title" />
+        <meta
+          property="og:description"
+          content="Detailed description for the video page."
+        />
+        <meta property="og:image" content="/images/video-thumbnail.jpg" />
+        <meta property="og:url" content="https://example.com/video-page" />
+        <meta property="og:type" content="website" />
+        {/* Other metadata */}
+        <title>My Video Page Title</title>
+      </Head>
+      <Navbar />
+
+      {/* <video controls className="w-screen">
+        <source src="/videos/vid.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video> */}
+
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="flex items-center justify-center px-8 my-4"
+      >
+        <div className="grid grid-cols-1   md:grid-cols-2 items-center text-center md:text-left gap-10 ">
+          {/* Left Section: Text Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="flex flex-col items-center md:items-start"
+          >
+            <div style={{ fontFamily: "var(--font-primary)", fontWeight: 700 }}>
+              <motion.p
+                initial={{ opacity: 0, y: -20 }}
+                // animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-2xl md:text-6xl"
+              >
+                Job Seeking made
+              </motion.p>
+              <motion.p
+                initial={{ opacity: 0, x: -10 }}
+                // animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-xl md:text-4xl py-2 text-gray-700"
+              >
+                Easy..........
+              </motion.p>
+            </div>
+
+            <motion.p
+              initial={{ opacity: 0, x: -20 }}
+              // animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="max-w-md mt-4 text-gray-600 text-lg"
+            >
+              The #1 Job Site to Find Remote Jobs. No Ads, Scams, or Junk Find
+              your next flexible, hybrid, or work from home job.
+            </motion.p>
+
+            {/* <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="max-w-md mt-2 text-gray-600"
+            >
+            
+            </motion.p> */}
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 1 }}
+              className="mt-5"
+            >
+              <SearchButton />
+            </motion.div>
+          </motion.div>
+
+          {/* Right Section: Image */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            // animate={{ opacity: 1, x: 0 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="flex justify-center "
+          >
+            <Image
+              src={lady}
+              width={600}
+              height={800}
+              alt="Job seeker"
+              className="rounded-lg"
+            />
+          </motion.div>
+        </div>
+      </motion.div>
+
+      {/* Employers & Candidates Section */}
+      {/* <EmployersCandidates /> */}
+
+      {/* Job Listings Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 3, ease: "easeOut" }}
+      >
+        <JobListings />
+        {/*  */}
+
+        <div className="text-center mt-8 ">
+          <div className="inline-block bg-red-500 text-white px-6 py-2 rounded-lg text-lg font-semibold">
+            Find Your Desired Job With Ease
+          </div>
+          <Roles />
+        </div>
+      </motion.div>
+
+      {/*  */}
+
+      <Footer />
+    </>
   );
 }
