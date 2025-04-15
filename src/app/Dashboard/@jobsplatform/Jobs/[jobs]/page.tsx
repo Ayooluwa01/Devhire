@@ -13,6 +13,10 @@ interface PageProps {
 }
 
 export default function Page({ params }: PageProps) {
+  if (typeof params.jobs !== "string") {
+    return <p>Invalid jobs parameter</p>;
+  }
+
   return (
     <div>
       {params.jobs === "saved-jobs" ? (
