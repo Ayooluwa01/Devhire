@@ -1,6 +1,6 @@
 "use client";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, SetStateAction } from "react";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { RootState } from "@/Redux/store";
@@ -31,7 +31,7 @@ export default function ProfileSidebar() {
       socket.off("ppics");
       socket.off("Profile");
     };
-  }, [socket, dispatch, userProfile.user_id]);
+  }, [socket, dispatch, userProfile?.user_id]);
 
   const links = [
     {
@@ -65,7 +65,7 @@ export default function ProfileSidebar() {
           className="w-20 h-20 rounded-full mx-auto shadow-md"
         />
 
-        <Profilepicture userid={userProfile.user_id} />
+        <Profilepicture userid={userProfile?.user_id} />
         <h2 className="text-xl font-semibold mt-4">
           {userProfile?.name || "User Name"}
         </h2>
@@ -143,8 +143,8 @@ function Profilepicture({ userid }: any) {
 }
 
 function FileUploadForm({ userid }: any) {
-  const [files, setFiles] = useState([]);
-  const onDrop = useCallback((acceptedFiles) => {
+  const [files, setFiles] = useState<File[]>([]);
+  const onDrop = useCallback((acceptedFiles: SetStateAction<File[]>) => {
     setFiles(acceptedFiles);
   }, []);
 
