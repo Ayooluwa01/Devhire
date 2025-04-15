@@ -18,9 +18,7 @@ export default function Page({ params }: PageProps) {
       {params.jobs === "saved-jobs" ? (
         <SavedJobsListing />
       ) : params.jobs === "applied-jobs" ? (
-        <>
-          <ApliedjobListing />
-        </>
+        <AppliedJobListing />
       ) : (
         <p>No Job found</p>
       )}
@@ -36,18 +34,18 @@ function SavedJobsListing() {
     socket.emit("getSavedJobs", userid.user_id);
 
     socket.on("savedJobs", (data: any[]) => {
-      setJobs(data); // ✅ Updated: Store the full array
+      setJobs(data);
     });
 
     return () => {
       socket.off("savedJobs");
     };
-  }, [userid.user_id]); // ✅ Dependency added
+  }, [userid.user_id]);
 
   return (
     <div>
       {jobs.length > 0 ? (
-        jobs.map((job) => <JobCard key={job.id} job={job} />) // ✅ Removed extra `{}`
+        jobs.map((job) => <JobCard key={job.id} job={job} />)
       ) : (
         <p>No saved jobs yet.</p>
       )}
@@ -55,26 +53,26 @@ function SavedJobsListing() {
   );
 }
 
-function ApliedjobListing() {
+function AppliedJobListing() {
   const [jobs, setJobs] = useState<any[]>([]);
   const userid = useSelector((state: RootState) => state.Token.userbio);
 
   useEffect(() => {
-    socket.emit("getSavedJobs", userid.user_id);
+    socket.emit("getAppliedJobs", userid.user_id); // Make sure this is the correct event name
 
     socket.on("appliedjobs", (data: any[]) => {
-      setJobs(data); // ✅ Updated: Store the full array
+      setJobs(data);
     });
 
     return () => {
       socket.off("appliedjobs");
     };
-  }, [userid.user_id]); // ✅ Dependency added
+  }, [userid.user_id]);
 
   return (
     <div>
       {jobs.length > 0 ? (
-        jobs.map((job) => <JobCard key={job.id} job={job} />) // ✅ Removed extra `{}`
+        jobs.map((job) => <JobCard key={job.id} job={job} />)
       ) : (
         <p>No Applied jobs yet.</p>
       )}
