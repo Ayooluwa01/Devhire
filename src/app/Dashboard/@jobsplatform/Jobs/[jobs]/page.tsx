@@ -6,17 +6,7 @@ import { RootState } from "@/Redux/store";
 import JobCard from "@/Components/JobCard";
 import socket from "@/lib/socket";
 
-interface PageProps {
-  params: {
-    jobs: string;
-  };
-}
-
-export default function Page({ params }: PageProps) {
-  if (typeof params.jobs !== "string") {
-    return <p>Invalid jobs parameter</p>;
-  }
-
+export default function Page({ params }: { params: { jobs: string } }) {
   return (
     <div>
       {params.jobs === "saved-jobs" ? (
@@ -36,14 +26,8 @@ function SavedJobsListing() {
 
   useEffect(() => {
     socket.emit("getSavedJobs", userid.user_id);
-
-    socket.on("savedJobs", (data: any[]) => {
-      setJobs(data);
-    });
-
-    return () => {
-      socket.off("savedJobs");
-    };
+    socket.on("savedJobs", (data: any[]) => setJobs(data));
+    return () => socket.off("savedJobs");
   }, [userid.user_id]);
 
   return (
@@ -62,15 +46,9 @@ function AppliedJobListing() {
   const userid = useSelector((state: RootState) => state.Token.userbio);
 
   useEffect(() => {
-    socket.emit("getAppliedJobs", userid.user_id); // Make sure this is the correct event name
-
-    socket.on("appliedjobs", (data: any[]) => {
-      setJobs(data);
-    });
-
-    return () => {
-      socket.off("appliedjobs");
-    };
+    socket.emit("getAppliedJobs", userid.user_id);
+    socket.on("appliedjobs", (data: any[]) => setJobs(data));
+    return () => socket.off("appliedjobs");
   }, [userid.user_id]);
 
   return (
@@ -78,7 +56,7 @@ function AppliedJobListing() {
       {jobs.length > 0 ? (
         jobs.map((job) => <JobCard key={job.id} job={job} />)
       ) : (
-        <p>No Applied jobs yet.</p>
+        <p>No applied jobs yet.</p>
       )}
     </div>
   );
