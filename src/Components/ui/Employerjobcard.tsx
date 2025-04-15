@@ -14,7 +14,10 @@ interface job {
 
 export default function EmployerJobCard({ job }: { job: job }) {
   return (
-    <Link href={`/Recruiterboard/Editjob/${job.id}`} className="cursor-pointer">
+    <Link
+      href={`/Recruiterboard/Editjob/${job.id}`}
+      className="cursor-pointer z-45"
+    >
       <div className="bg-white shadow-md p-4 rounded-lg mb-4">
         <h3 className="font-semibold flex flex-row ">
           <span>
