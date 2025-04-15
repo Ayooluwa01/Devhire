@@ -23,6 +23,10 @@ export default function Page({ params }: { params: { jobs: string } }) {
   );
 }
 
+export async function generateStaticParams() {
+  return [{ jobs: "saved-jobs" }, { jobs: "applied-jobs" }];
+}
+
 function SavedJobsListing() {
   const [jobs, setJobs] = useState<any[]>([]);
   const userid = useSelector((state: RootState) => state.Token.userbio);
