@@ -15,7 +15,7 @@ import Navbar from "@/Components/Navbar";
 import JobListings from "@/Components/Joblisting";
 import Head from "next/head";
 
-export function EmployersCandidates() {
+function EmployersCandidates() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -83,7 +83,7 @@ export function EmployersCandidates() {
   );
 }
 
-export function Whydevhire() {
+function Whydevhire() {
   return (
     <div className="flex justify-center items-center min-h-screen  mt-8">
       <div className="text-center  px-6">
@@ -160,7 +160,7 @@ export function Whydevhire() {
   );
 }
 
-export function Roles() {
+function Roles() {
   return (
     <div className="flex flex-col lg:flex-row items-center justify-center gap-10 mt-12 px-6">
       {/* Left Side - Text & Image */}
