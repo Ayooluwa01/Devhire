@@ -94,7 +94,7 @@ export default function ProfileSidebar() {
   );
 }
 
-export function LogoutButton() {
+function LogoutButton() {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -134,7 +134,7 @@ export function LogoutButton() {
   );
 }
 
-export function Profilepicture({ userid }: any) {
+function Profilepicture({ userid }: any) {
   return (
     <div className="mt-4">
       <FileUploadForm userid={userid} />

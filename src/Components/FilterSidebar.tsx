@@ -1,4 +1,5 @@
 "use client";
+import socket from "@/lib/socket";
 import {
   setJob,
   setJobExperiences,
@@ -8,9 +9,6 @@ import {
 import { RootState } from "@/Redux/store";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { io } from "socket.io-client";
-
-const socket = io("http://localhost:9000");
 
 export default function FilterSidebar() {
   const dispatch = useDispatch();

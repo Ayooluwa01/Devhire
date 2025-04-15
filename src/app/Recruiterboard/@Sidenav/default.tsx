@@ -90,8 +90,7 @@ export default function DefaultSidenav() {
     </div>
   );
 }
-
-export function EmployerProfilepicture({ userid }: any) {
+function EmployerProfilepicture({ userid }: any) {
   return (
     <div className="mt-4">
       <EmployerFileUploadForm userid={userid} />

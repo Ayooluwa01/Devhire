@@ -65,7 +65,7 @@ const DynamicField = ({
   </div>
 );
 
-export function JobForm() {
+function JobForm() {
   const router = useRouter();
   const { id } = useParams();
   const searchParams = useSearchParams();
