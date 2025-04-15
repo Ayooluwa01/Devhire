@@ -20,7 +20,7 @@ export default function ApplicantsPage() {
   );
 }
 
-export function AllApplicantsList() {
+function AllApplicantsList() {
   const userid = useSelector((state: RootState) => state.Token.userbio);
   const [applicantdata, setApplicatdata] = useState<Applicant[]>([]);
 

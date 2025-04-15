@@ -32,7 +32,6 @@ export default function WorkExperienceCard() {
       // Only parse if experience is a non-empty string
       experiences = JSON.parse(userBio.experience);
     } catch (error) {
-      console.error("Error parsing experience data:", error);
       // Optionally handle the error (set experiences to an empty array or null)
       experiences = [];
     }
