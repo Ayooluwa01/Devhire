@@ -1,7 +1,30 @@
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
-import type { NextAuthOptions } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import axios from "axios";
+
+// Extend NextAuth types directly
+declare module "next-auth" {
+  interface User {
+    role?: string;
+  }
+
+  interface Session {
+    user: {
+      id: string;
+      name: string;
+      email: string;
+      role: string;
+    };
+  }
+
+  interface JWT {
+    role?: string;
+    id: string;
+    name: string;
+    email: string;
+  }
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -44,7 +67,8 @@ export const authOptions: NextAuthOptions = {
         token.id = user.id;
         token.name = user.name;
         token.email = user.email;
-        token.role = user.role || "jobseeker";
+        // Ensure role is assigned a string value
+        token.role = (user.role ?? "jobseeker") as string; // Default to "jobseeker"
         token.expires = Math.floor(Date.now() / 1000) + 20;
       }
       return token;
@@ -52,10 +76,11 @@ export const authOptions: NextAuthOptions = {
 
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id;
-        session.user.name = token.name;
-        session.user.email = token.email;
-        session.user.role = token.role;
+        session.user.id = token.id as any;
+        session.user.name = token.name as any;
+        session.user.email = token.email as any;
+        // Ensure role is a string
+        session.user.role = token.role as string; // Default to "jobseeker"
       }
       return session;
     },
