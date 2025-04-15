@@ -1,6 +1,6 @@
 "use client";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, SetStateAction } from "react";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { RootState } from "@/Redux/store";
@@ -20,8 +20,8 @@ export function USerProfilepicture({ userid }: any) {
 }
 
 function FileUploadForm({ userid }: any) {
-  const [files, setFiles] = useState([]);
-  const onDrop = useCallback((acceptedFiles) => {
+  const [files, setFiles] = useState<File[]>([]);
+  const onDrop = useCallback((acceptedFiles: SetStateAction<File[]>) => {
     setFiles(acceptedFiles);
   }, []);
 
