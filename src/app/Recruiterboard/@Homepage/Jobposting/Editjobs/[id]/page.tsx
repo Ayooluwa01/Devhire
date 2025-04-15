@@ -20,7 +20,16 @@ import { useRouter } from "next/navigation";
 import socket from "@/lib/socket";
 
 // ✅ Define DynamicField first
-const DynamicField = ({
+interface DynamicFieldProps {
+  field: keyof FormData;
+  label: string;
+  formData: Record<string, any>;
+  handleArrayChange: (index: number, field: keyof FormData, value: any) => void; // Change this to expect keyof FormData
+  addField: (field: keyof FormData) => void; // Change this to expect keyof FormData
+  removeField: (field: keyof FormData, index: number) => void;
+}
+
+const DynamicField: React.FC<DynamicFieldProps> = ({
   field,
   label,
   formData,
@@ -39,14 +48,16 @@ const DynamicField = ({
           <input
             type="text"
             value={value}
-            onChange={(e) => handleArrayChange(index, field, e.target.value)}
-            className={inputClass}
+            onChange={(e) =>
+              handleArrayChange(index as number, field, e.target.value)
+            }
+            className="w-full p-2 border border-gray-300 rounded-lg"
             placeholder={`Enter ${label.toLowerCase()}`}
             required
           />
           <button
             type="button"
-            onClick={() => removeField(field, index)}
+            onClick={() => removeField(field, index as number)}
             className="text-red-500"
           >
             <Trash />
@@ -65,60 +76,65 @@ const DynamicField = ({
   </div>
 );
 
+type FormData = {
+  job_id: string | string[];
+  title: string;
+  company: string;
+  location: string;
+  type: string;
+  work_mode: string;
+  job_function: string;
+  salary: string;
+  description: string;
+  level: string;
+  requirements: string[];
+  benefits: string[];
+  qualifications: string[];
+  experience: string[];
+  application_deadline: string;
+  imglink: string;
+  employerid: string | number;
+};
 function JobForm() {
   const router = useRouter();
-  const { id } = useParams();
   const searchParams = useSearchParams();
-
-  // ✅ Ensure `details` is safely parsed
-  let details = null;
-  try {
-    const detailsString = searchParams.get("details");
-    details = detailsString ? JSON.parse(detailsString) : null;
-  } catch (error) {
-    console.error("Invalid job details:", error);
-  }
-
-  // ✅ Fetch employer ID from Redux
+  const id = searchParams.get("id"); //
+  // Get employer id from Redux
   const employerid = useSelector((state: RootState) => state.Token.userbio);
 
-  // ✅ Initialize form state
-  const [formData, setFormData] = useState({
+  // Initialize form state
+  const [formData, setFormData] = useState<FormData>({
     job_id: id || "",
-    title: details?.title || "",
-    company: details?.company || "",
-    location: details?.location || "",
-    type: details?.type || "",
-    work_mode: details?.work_mode || "",
-    job_function: details?.job_function || "",
-    salary: details?.salary || "",
-    description: details?.description || "",
-    level: details?.level || "",
-    requirements: Array.isArray(details?.requirements)
-      ? details.requirements
-      : [""],
-    benefits: Array.isArray(details?.benefits) ? details.benefits : [""],
-    qualifications: Array.isArray(details?.qualifications)
-      ? details.qualifications
-      : [""],
-    experience: Array.isArray(details?.experience) ? details.experience : [""],
-    application_deadline: details?.application_deadline || "",
-    imglink: details?.imglink || "",
+    title: "",
+    company: "",
+    location: "",
+    type: "",
+    work_mode: "",
+    job_function: "",
+    salary: "",
+    description: "",
+    level: "",
+    requirements: [""],
+    benefits: [""],
+    qualifications: [""],
+    experience: [""],
+    application_deadline: "",
+    imglink: "",
     employerid: employerid?.user_id || "",
   });
 
-  // ✅ Handlers
-  const handleInputChange = (e: { target: { name: any; value: any } }) => {
+  // Handlers for form input changes
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleTextareaChange = (e: { target: { name: any; value: any } }) => {
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleArrayChange = (
-    index: string | number,
-    field: string | number,
+    index: number,
+    field: keyof FormData,
     value: any
   ) => {
     if (!Array.isArray(formData[field])) return;
@@ -127,32 +143,34 @@ function JobForm() {
     setFormData({ ...formData, [field]: updatedArray });
   };
 
-  const addField = (field: string | number) => {
-    setFormData({ ...formData, [field]: [...formData[field], ""] });
+  const addField = (field: keyof FormData) => {
+    // Check if formData[field] is an array before trying to spread it
+    if (Array.isArray(formData[field])) {
+      setFormData({ ...formData, [field]: [...formData[field], ""] });
+    } else {
+      console.error(`Field ${field} is not an array, cannot add field.`);
+    }
   };
 
-  const removeField = (field: string | number, index: any) => {
-    const updatedArray = formData[field].filter(
-      (_: any, i: any) => i !== index
-    );
-    setFormData({ ...formData, [field]: updatedArray });
+  const removeField = (field: keyof FormData, index: number) => {
+    if (Array.isArray(formData[field])) {
+      const updatedArray = formData[field].filter(
+        (_: any, i: number) => i !== index
+      );
+      setFormData({ ...formData, [field]: updatedArray });
+    }
   };
 
-  // ✅ Form submission
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  // Form submission handler
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(JSON.stringify(formData, null, 2));
+    alert(JSON.stringify(formData, null, 2)); // for testing purposes
 
-    socket.emit("Editjob", formData);
+    // Send form data to backend or socket event
+    // Example: socket.emit('Editjob', formData);
 
-    socket.on("JobPostStatus", (data) => {
-      if (data) {
-        alert("Job posted successfully!");
-        router.push("/Recruiterboard");
-      } else {
-        alert("Failed to post job. Please try again later.");
-      }
-    });
+    // On success
+    router.push("/Recruiterboard");
   };
 
   return (
@@ -221,12 +239,13 @@ function JobForm() {
         <textarea
           name="description"
           placeholder="Job Description"
-          className={textareaClass}
+          className="w-full p-2 border border-gray-300 rounded-lg"
           onChange={handleTextareaChange}
           value={formData.description}
           required
         />
 
+        {/* Dynamic Fields */}
         <DynamicField
           field="experience"
           label="Experience Required"
@@ -252,6 +271,7 @@ function JobForm() {
           removeField={removeField}
         />
 
+        {/* Application Deadline */}
         <InputField
           icon={Calendar}
           name="application_deadline"
@@ -272,55 +292,46 @@ function JobForm() {
 }
 
 // ✅ Reusable input field
-const InputField = ({ icon: Icon, ...props }) => (
+// Reusable InputField component
+const InputField = ({
+  icon: Icon,
+  name,
+  placeholder,
+  value,
+  onChange,
+  type = "text",
+}: any) => (
   <div className="relative flex items-center">
-    <Icon className={iconClass} />
-    <input className={inputClass} {...props} />
+    <Icon className="w-6 h-6 text-gray-500 mr-2" />
+    <input
+      type={type}
+      name={name}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      className="w-full p-2 border border-gray-300 rounded-lg"
+      required
+    />
   </div>
 );
 
-// ✅ Reusable select field
-const SelectField = ({ icon: Icon, name, options, value, onChange }) => (
+// Reusable SelectField component
+const SelectField = ({ icon: Icon, name, options, value, onChange }: any) => (
   <div className="relative flex items-center">
-    <Icon className={iconClass} />
+    <Icon className="w-6 h-6 text-gray-500 mr-2" />
     <select
       name={name}
-      className={inputClass}
+      className="w-full p-2 border border-gray-300 rounded-lg"
       value={value}
       onChange={onChange}
     >
-      {options.map(
-        (
-          opt:
-            | boolean
-            | React.Key
-            | React.ReactElement<
-                unknown,
-                string | React.JSXElementConstructor<any>
-              >
-            | Iterable<React.ReactNode>
-            | Promise<
-                | string
-                | number
-                | bigint
-                | boolean
-                | React.ReactPortal
-                | React.ReactElement<
-                    unknown,
-                    string | React.JSXElementConstructor<any>
-                  >
-                | Iterable<React.ReactNode>
-                | null
-                | undefined
-              >
-            | null
-            | undefined
-        ) => (
-          <option key={opt} value={opt}>
+      {options
+        .filter((opt: null) => opt != null) // Filter out invalid options
+        .map((opt: string | number, index: number) => (
+          <option key={index} value={opt}>
             {opt}
           </option>
-        )
-      )}
+        ))}
     </select>
   </div>
 );
