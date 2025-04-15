@@ -6,14 +6,12 @@ import { RootState } from "@/Redux/store";
 import JobCard from "@/Components/JobCard";
 import socket from "@/lib/socket";
 
-interface PageProps {
-  params: {
+export default async function Page(props: {
+  params: Promise<{
     jobs: string;
-  };
-}
-
-export default async function Page({ params }: { params: { jobs: string } }) {
-  const { jobs } = await params;
+  }>;
+}) {
+  const { jobs } = await props.params;
 
   return (
     <div>
