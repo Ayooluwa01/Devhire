@@ -6,7 +6,7 @@ interface Params {
   auth: string;
 }
 
-export default async function Page({ params }: { params: Params }) {
+export default function Page({ params }: { params: Params }) {
   const auth = params.auth; // No need for `await` here, as `params.auth` is not a Promise.
 
   return (
