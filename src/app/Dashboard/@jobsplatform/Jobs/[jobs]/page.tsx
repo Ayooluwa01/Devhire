@@ -6,7 +6,13 @@ import { RootState } from "@/Redux/store";
 import JobCard from "@/Components/JobCard";
 import socket from "@/lib/socket";
 
-export default function Page({ params }: { params: { jobs: string } }) {
+interface PageProps {
+  params: {
+    jobs: string;
+  };
+}
+
+export default function Page({ params }: PageProps) {
   return (
     <div>
       {params.jobs === "saved-jobs" ? (
@@ -70,7 +76,7 @@ function ApliedjobListing() {
       {jobs.length > 0 ? (
         jobs.map((job) => <JobCard key={job.id} job={job} />) // ✅ Removed extra `{}`
       ) : (
-        <p>No saved jobs yet.</p>
+        <p>No Applied jobs yet.</p>
       )}
     </div>
   );
