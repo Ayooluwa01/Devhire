@@ -1,6 +1,6 @@
 // src/app/metadata.ts
 import { Metadata } from "next";
-import Homepage from "./index/page"; // Ensure the correct path
+import Homepage from "./Mainpage/page"; // Ensure the correct path
 
 export const metadata: Metadata = {
   title: "Devhire",
