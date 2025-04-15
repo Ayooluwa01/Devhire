@@ -41,7 +41,7 @@ export default function JobListings() {
         setJobs(jobs);
         setError(""); // Clear error when jobs are found
       });
-      socket.emit("Getprofile", userprofile.user_id);
+      socket.emit("Getprofile", userprofile?.user_id);
 
       socket.on("Profile", (data) => {
         dispatch(storeprofile(data));
@@ -134,7 +134,7 @@ export default function JobListings() {
         <SwiperSlide>
           <div className="p-6 sticky">
             <div className="bg-blue-600 text-white p-6 rounded-lg shadow-md text-center">
-              <h1 className="text-2xl font-bold">{userprofile.name}</h1>
+              <h1 className="text-2xl font-bold">{userprofile?.name}</h1>
               <p className="mt-2 text-sm">
                 Looking for jobs? Browse our latest job openings to view & apply
                 to the best jobs today!

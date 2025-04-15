@@ -1,6 +1,4 @@
 import JobCard from "@/Components/JobCard";
-import SearchBar from "@/Components/searchbar";
-import Link from "next/link";
 
 interface Job {
   id: string;

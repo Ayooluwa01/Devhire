@@ -12,12 +12,23 @@ import {
   useState,
 } from "react";
 
+type Applicant = {
+  bio: any;
+  address: any;
+  number: any;
+  email: any;
+  name: any;
+  education: any;
+  experience: any;
+  skills: any;
+  Profilepicture: any;
+};
 export default function Page() {
   const searchParams = useSearchParams();
   const detailsString = searchParams.get("details");
   const details = detailsString ? JSON.parse(detailsString) : null;
 
-  const [applicant, setApplicant] = useState([]);
+  const [applicant, setApplicant] = useState<Applicant | null>(null);
 
   useEffect(() => {
     // Emit request to server
@@ -37,11 +48,11 @@ export default function Page() {
     };
   }, [socket, details.applicant_email]);
 
-  const education = applicant.education ? JSON.parse(applicant.education) : [];
-  const experience = applicant.experience
-    ? JSON.parse(applicant.experience)
+  const education = applicant?.education ? JSON.parse(applicant.education) : [];
+  const experience = applicant?.experience
+    ? JSON.parse(applicant?.experience)
     : [];
-  const skills = applicant.skills
+  const skills = applicant?.skills
     ? JSON.parse(
         applicant.skills
           .replace(/'/g, '"')
@@ -116,18 +127,74 @@ export default function Page() {
         <div>
           <h3 className="font-semibold mb-1">Requirements</h3>
           <ul className="list-disc pl-5 text-gray-700 text-sm space-y-1">
-            {details.requirements?.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
+            {details.requirements?.map(
+              (
+                item:
+                  | string
+                  | number
+                  | bigint
+                  | boolean
+                  | ReactElement<unknown, string | JSXElementConstructor<any>>
+                  | Iterable<ReactNode>
+                  | ReactPortal
+                  | Promise<
+                      | string
+                      | number
+                      | bigint
+                      | boolean
+                      | ReactPortal
+                      | ReactElement<
+                          unknown,
+                          string | JSXElementConstructor<any>
+                        >
+                      | Iterable<ReactNode>
+                      | null
+                      | undefined
+                    >
+                  | null
+                  | undefined,
+                i: Key | null | undefined
+              ) => (
+                <li key={i}>{item}</li>
+              )
+            )}
           </ul>
         </div>
 
         <div>
           <h3 className="font-semibold mb-1">Benefits</h3>
           <ul className="list-disc pl-5 text-gray-700 text-sm space-y-1">
-            {details.benefits?.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
+            {details.benefits?.map(
+              (
+                item:
+                  | string
+                  | number
+                  | bigint
+                  | boolean
+                  | ReactElement<unknown, string | JSXElementConstructor<any>>
+                  | Iterable<ReactNode>
+                  | ReactPortal
+                  | Promise<
+                      | string
+                      | number
+                      | bigint
+                      | boolean
+                      | ReactPortal
+                      | ReactElement<
+                          unknown,
+                          string | JSXElementConstructor<any>
+                        >
+                      | Iterable<ReactNode>
+                      | null
+                      | undefined
+                    >
+                  | null
+                  | undefined,
+                i: Key | null | undefined
+              ) => (
+                <li key={i}>{item}</li>
+              )
+            )}
           </ul>
         </div>
 
@@ -154,16 +221,16 @@ export default function Page() {
           <div className="flex flex-col md:flex-row items-center gap-4 py-4">
             <img
               src={
-                applicant.Profilepicture || "https://via.placeholder.com/100"
+                applicant?.Profilepicture || "https://via.placeholder.com/100"
               }
               alt="Applicant"
               className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover border"
             />
             <div className="text-center md:text-left">
-              <h2 className="text-xl font-bold">{applicant.name}</h2>
-              <p className="text-gray-500">{applicant.email}</p>
-              <p className="text-gray-500">{applicant.number}</p>
-              <p className="text-gray-500">{applicant.address}</p>
+              <h2 className="text-xl font-bold">{applicant?.name}</h2>
+              <p className="text-gray-500">{applicant?.email}</p>
+              <p className="text-gray-500">{applicant?.number}</p>
+              <p className="text-gray-500">{applicant?.address}</p>
             </div>
           </div>
 
@@ -171,7 +238,7 @@ export default function Page() {
             <div>
               <h3 className="font-semibold text-lg border-b pb-1">Bio</h3>
               <p className="text-gray-600 mt-2">
-                {applicant.bio || "No bio available"}
+                {applicant?.bio || "No bio available"}
               </p>
             </div>
 
@@ -227,14 +294,101 @@ export default function Page() {
             <div>
               <h3 className="font-semibold text-lg border-b pb-1">Education</h3>
               {education.length > 0 ? (
-                education.map((edu, i) => (
-                  <div key={i} className="mt-2">
-                    <p className="font-medium">{edu.school}</p>
-                    <p className="text-gray-500">
-                      {edu.degree} — {edu.year}
-                    </p>
-                  </div>
-                ))
+                education.map(
+                  (
+                    edu: {
+                      school:
+                        | string
+                        | number
+                        | bigint
+                        | boolean
+                        | ReactElement<
+                            unknown,
+                            string | JSXElementConstructor<any>
+                          >
+                        | Iterable<ReactNode>
+                        | ReactPortal
+                        | Promise<
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | ReactPortal
+                            | ReactElement<
+                                unknown,
+                                string | JSXElementConstructor<any>
+                              >
+                            | Iterable<ReactNode>
+                            | null
+                            | undefined
+                          >
+                        | null
+                        | undefined;
+                      degree:
+                        | string
+                        | number
+                        | bigint
+                        | boolean
+                        | ReactElement<
+                            unknown,
+                            string | JSXElementConstructor<any>
+                          >
+                        | Iterable<ReactNode>
+                        | ReactPortal
+                        | Promise<
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | ReactPortal
+                            | ReactElement<
+                                unknown,
+                                string | JSXElementConstructor<any>
+                              >
+                            | Iterable<ReactNode>
+                            | null
+                            | undefined
+                          >
+                        | null
+                        | undefined;
+                      year:
+                        | string
+                        | number
+                        | bigint
+                        | boolean
+                        | ReactElement<
+                            unknown,
+                            string | JSXElementConstructor<any>
+                          >
+                        | Iterable<ReactNode>
+                        | ReactPortal
+                        | Promise<
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | ReactPortal
+                            | ReactElement<
+                                unknown,
+                                string | JSXElementConstructor<any>
+                              >
+                            | Iterable<ReactNode>
+                            | null
+                            | undefined
+                          >
+                        | null
+                        | undefined;
+                    },
+                    i: Key | null | undefined
+                  ) => (
+                    <div key={i} className="mt-2">
+                      <p className="font-medium">{edu.school}</p>
+                      <p className="text-gray-500">
+                        {edu.degree} — {edu.year}
+                      </p>
+                    </div>
+                  )
+                )
               ) : (
                 <p className="text-gray-400">No education details</p>
               )}

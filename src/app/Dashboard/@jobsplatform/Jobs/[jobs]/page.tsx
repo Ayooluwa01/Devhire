@@ -33,7 +33,7 @@ function SavedJobsListing() {
   const userid = useSelector((state: RootState) => state.Token.userbio);
 
   useEffect(() => {
-    socket.emit("getSavedJobs", userid.user_id);
+    socket.emit("getSavedJobs", userid?.user_id);
 
     socket.on("savedJobs", (data: any[]) => {
       setJobs(data); // ✅ Updated: Store the full array
@@ -42,7 +42,7 @@ function SavedJobsListing() {
     return () => {
       socket.off("savedJobs");
     };
-  }, [userid.user_id]); // ✅ Dependency added
+  }, [userid?.user_id]); // ✅ Dependency added
 
   return (
     <div>
@@ -60,7 +60,7 @@ function ApliedjobListing() {
   const userid = useSelector((state: RootState) => state.Token.userbio);
 
   useEffect(() => {
-    socket.emit("getSavedJobs", userid.user_id);
+    socket.emit("getSavedJobs", userid?.user_id);
 
     socket.on("appliedjobs", (data: any[]) => {
       setJobs(data); // ✅ Updated: Store the full array
@@ -69,7 +69,7 @@ function ApliedjobListing() {
     return () => {
       socket.off("appliedjobs");
     };
-  }, [userid.user_id]); // ✅ Dependency added
+  }, [userid?.user_id]); // ✅ Dependency added
 
   return (
     <div>

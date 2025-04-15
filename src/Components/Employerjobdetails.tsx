@@ -6,7 +6,12 @@ import { RootState } from "@/Redux/store";
 import socket from "@/lib/socket";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
+type UserBio = {
+  user_id: number;
+  name?: string;
+  email?: string;
+  // add any other fields you expect
+};
 export default function Employerjobdetails({ details, jobId }: any) {
   const [saved, setSaved] = useState(false);
   const employer_id = useSelector((state: RootState) => state.Token.userbio);
@@ -28,7 +33,7 @@ export default function Employerjobdetails({ details, jobId }: any) {
   }, [socket]);
 
   const deletejob = () => {
-    const ids = [jobId, employer_id.user_id];
+    const ids = [jobId, employer_id?.user_id];
     socket.emit("deletejob", ids);
   };
 

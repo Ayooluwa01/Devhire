@@ -57,7 +57,7 @@ export default function JobForm() {
     experience: [""],
     application_deadline: "",
     imglink: "",
-    employerid: employerid.user_id,
+    employerid: employerid?.user_id,
   });
 
   // Handle changes for input and select fields
@@ -93,7 +93,9 @@ export default function JobForm() {
 
   // Remove field from array fields (like experience, requirements, etc.)
   const removeField = (field: keyof FormData, index: number) => {
-    const updatedArray = formData[field].filter((_, i) => i !== index);
+    const updatedArray = formData[field].filter(
+      (_: any, i: number) => i !== index
+    );
     setFormData({ ...formData, [field]: updatedArray });
   };
 

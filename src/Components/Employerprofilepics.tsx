@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
 import socket from "@/lib/socket";
-import { useState, useCallback } from "react";
+import { useState, useCallback, SetStateAction } from "react";
 
 export function Employerpicture({ userid }: any) {
   return (
@@ -15,7 +15,7 @@ export function Employerpicture({ userid }: any) {
 function EmployerFileUploadForm({ userid }: any) {
   const [files, setFiles] = useState<File[]>([]);
 
-  const onDrop = useCallback((acceptedFiles) => {
+  const onDrop = useCallback((acceptedFiles: SetStateAction<File[]>) => {
     setFiles(acceptedFiles);
   }, []);
 

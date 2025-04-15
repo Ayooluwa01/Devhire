@@ -9,7 +9,7 @@ import { useDropzone } from "react-dropzone";
 import { RootState } from "@/Redux/store";
 import { Home, Briefcase, FileText, Star } from "lucide-react";
 import socket from "@/lib/socket";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, SetStateAction } from "react";
 import Cookies from "js-cookie";
 
 export default function Sidenav() {
@@ -31,7 +31,7 @@ export default function Sidenav() {
     return () => {
       socket.off("logo", handleProfilePicUpdate);
     };
-  }, [userProfile.user_id]);
+  }, [userProfile?.user_id]);
 
   const links = [
     {
@@ -65,7 +65,7 @@ export default function Sidenav() {
           alt="User"
           className="w-20 h-20 rounded-full mx-auto shadow-md"
         />
-        <EmployerProfilepicture userid={userProfile.user_id} />
+        <EmployerProfilepicture userid={userProfile?.user_id} />
         <h2 className="text-xl font-semibold mt-4">
           {userProfile?.name || "User Name"}
         </h2>
@@ -102,7 +102,7 @@ function EmployerProfilepicture({ userid }: any) {
 function EmployerFileUploadForm({ userid }: any) {
   const [files, setFiles] = useState<File[]>([]);
 
-  const onDrop = useCallback((acceptedFiles) => {
+  const onDrop = useCallback((acceptedFiles: SetStateAction<File[]>) => {
     setFiles(acceptedFiles);
   }, []);
 

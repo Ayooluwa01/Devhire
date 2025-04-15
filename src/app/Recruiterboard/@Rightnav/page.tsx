@@ -6,9 +6,15 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/Redux/store";
 import Link from "next/link";
 
+type Applicant = {
+  email: any;
+  applicant_name: string;
+  Profilepicture: any;
+  title: string;
+};
 export default function ApplicantsList() {
   const userid = useSelector((state: RootState) => state.Token.userbio);
-  const [applicantdata, setApplicatdata] = useState([]);
+  const [applicantdata, setApplicatdata] = useState<Applicant[]>([]);
 
   useEffect(() => {
     if (!userid?.user_id) return;
@@ -23,7 +29,7 @@ export default function ApplicantsList() {
       socket.off("getapplicants");
       socket.off("applicants");
     };
-  }, [userid.user_id]);
+  }, [userid?.user_id]);
 
   return (
     <div className="flex bg-gray-100 p-6 rounded-lg shadow-lg w-full max-w-3xl mx-auto relative">

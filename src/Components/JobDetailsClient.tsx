@@ -13,10 +13,10 @@ type User = {
 export default function JobDetailsClient({ details, jobId }: any) {
   const [saved, setSaved] = useState(false);
   const [applied, setapplied] = useState(false);
-  const userid = useSelector<RootState, User[]>((state) => state.Token.userbio);
+  const userid = useSelector((state: RootState) => state.Token.userbio);
   // const savejobdetails={jobId,userid.user_id}
 
-  const ids = [jobId, userid.user_id];
+  const ids = [jobId, userid?.user_id];
   const savejob = () => {
     socket.emit("savejob", ids);
     setSaved(true);

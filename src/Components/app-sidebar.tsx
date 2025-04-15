@@ -40,7 +40,7 @@ export function AppSidebar() {
       socket.off("ppics");
       socket.off("Profile");
     };
-  }, [socket, dispatch, userProfile.user_id]);
+  }, [socket, dispatch, userProfile?.user_id]);
 
   // const handleLogout = async () => {
   //   // try {
@@ -119,7 +119,7 @@ export function AppSidebar() {
                 className="w-20 h-20 rounded-full mx-auto shadow-md"
               />
 
-              <Employerpicture userid={userProfile.user_id} />
+              <Employerpicture userid={userProfile?.user_id} />
               <h2 className="text-xl font-semibold mt-4">
                 {userProfile?.name || "User Name"}
               </h2>
