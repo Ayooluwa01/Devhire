@@ -1,12 +1,13 @@
 import Employerjobdetails from "@/Components/Employerjobdetails";
 
-export default async function Editjobs({
-  params,
-}: {
-  params: {
-    job: string;
-  };
-}) {
+export default async function Editjobs(
+  props: {
+    params: Promise<{
+      job: string;
+    }>;
+  }
+) {
+  const params = await props.params;
   const res = await fetch(`http://localhost:3000/api/joblisting/${params.job}`);
 
   if (!res.ok) {

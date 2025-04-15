@@ -1,10 +1,11 @@
 import JobDetailsClient from "@/Components/JobDetailsClient";
 
-export default async function Jobdetails({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function Jobdetails(
+  props: {
+    params: Promise<{ id: string }>;
+  }
+) {
+  const params = await props.params;
   const res = await fetch(
     `https://allegedly-related-jay.ngrok-free.app/api/joblisting/${params.id}`
   );

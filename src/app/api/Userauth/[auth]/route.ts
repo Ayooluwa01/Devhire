@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
-export async function GET(req: Request, { params }: { params: { auth: any } }) {
+export async function GET(req: Request, props: { params: Promise<{ auth: any }> }) {
+  const params = await props.params;
   try {
     const res = await fetch(`http://localhost:9000/login/auth/${params.auth}`);
     const job = await res.json();

@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 
-export async function GET(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
+export async function GET(req: Request, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   // const apiUrls = {
   //   local: "http://localhost:9000",
   //   phone: "http://192.168.208.198:9000",
