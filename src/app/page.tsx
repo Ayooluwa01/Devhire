@@ -326,6 +326,7 @@ export function Roles() {
             icon: <UserIcon className="h-8 w-8 text-blue-600" />,
             bgColor: "bg-blue-500",
             link: "/Signup",
+            value: 1,
           },
           {
             title: "Sign Up as an Employer",
