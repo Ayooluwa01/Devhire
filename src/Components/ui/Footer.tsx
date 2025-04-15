@@ -5,6 +5,7 @@ import {
   CodeBracketSquareIcon,
   BriefcaseIcon,
 } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 export function Footer() {
   return (
@@ -33,18 +34,21 @@ export function Footer() {
               <ul className="mt-3 space-y-2 text-gray-300">
                 <li className="flex items-center justify-center md:justify-start">
                   <EnvelopeIcon className="h-5 w-5 text-red-500 mr-2" />
-                  <a
+                  <Link
                     href="mailto:olusegunstephen222@gmail.com"
                     className="hover:text-red-400"
                   >
                     olusegunstephen222@gmail.com
-                  </a>
+                  </Link>
                 </li>
                 <li className="flex items-center justify-center md:justify-start">
                   <PhoneIcon className="h-5 w-5 text-red-500 mr-2" />
-                  <a href="tel:+2347040552466" className="hover:text-red-400">
+                  <Link
+                    href="tel:+2347040552466"
+                    className="hover:text-red-400"
+                  >
                     07040552466
-                  </a>
+                  </Link>
                 </li>
                 <li className="flex items-center justify-center md:justify-start">
                   <MapPinIcon className="h-5 w-5 text-red-500 mr-2" />
@@ -58,19 +62,19 @@ export function Footer() {
               <h3 className="text-lg font-semibold">Sign In</h3>
               <ul className="mt-3 space-y-2">
                 <li>
-                  <a href="#" className="hover:text-red-400">
+                  <Link href="#" className="hover:text-red-400">
                     As Employer
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/login" className="hover:text-red-400">
+                  <Link href="/login" className="hover:text-red-400">
                     Login
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/Signup" className="hover:text-red-400">
+                  <Link href="/Signup" className="hover:text-red-400">
                     Signup
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -79,18 +83,18 @@ export function Footer() {
             <div>
               <h3 className="text-lg font-semibold">Follow Us</h3>
               <div className="flex justify-center md:justify-start mt-3 space-x-4">
-                <a href="#" className="hover:text-red-400">
+                <Link href="#" className="hover:text-red-400">
                   <FaceSmileIcon className="h-6 w-6" />
-                </a>
-                <a href="#" className="hover:text-red-400">
+                </Link>
+                <Link href="#" className="hover:text-red-400">
                   <ChatBubbleLeftIcon className="h-6 w-6" />
-                </a>
-                <a href="#" className="hover:text-red-400">
+                </Link>
+                <Link href="#" className="hover:text-red-400">
                   <CodeBracketSquareIcon className="h-6 w-6" />
-                </a>
-                <a href="#" className="hover:text-red-400">
+                </Link>
+                <Link href="#" className="hover:text-red-400">
                   <BriefcaseIcon className="h-6 w-6" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>

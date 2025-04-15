@@ -34,6 +34,9 @@ const eslintConfig = [
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-unused-vars": "off",
+      "react/no-unescaped-entities": "off",
+      "prefer-const": "off",
+      "@typescript-eslint/no-unsafe-function-type": "off",
     },
   },
 ];

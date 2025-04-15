@@ -291,8 +291,7 @@ const ProfileCompletion = () => {
             {step === 0 && (
               <div className="space-y-6 animate-fadeIn">
                 <h2 className="text-xl md:text-2xl font-semibold text-gray-700 border-b pb-3 mb-6">
-                  {" "}
-                  Basic Information{" "}
+                  Basic Information
                 </h2>
                 <InputField
                   label="Phone Number"
@@ -327,8 +326,7 @@ const ProfileCompletion = () => {
             {step === 1 && (
               <div className="animate-fadeIn">
                 <h2 className="text-xl md:text-2xl font-semibold text-gray-700 border-b pb-3 mb-6">
-                  {" "}
-                  Your Skills{" "}
+                  Your Skills
                 </h2>
                 <p className="text-sm text-gray-500 mb-4">
                   Select all skills that apply to you.
@@ -364,8 +362,7 @@ const ProfileCompletion = () => {
             {step === 2 && (
               <div className="animate-fadeIn">
                 <h2 className="text-xl md:text-2xl font-semibold text-gray-700 border-b pb-3 mb-6">
-                  {" "}
-                  Education History{" "}
+                  Education History
                 </h2>
                 {formData.education.map((edu) => (
                   <div
@@ -386,12 +383,11 @@ const ProfileCompletion = () => {
                           stroke="currentColor"
                           strokeWidth="2"
                         >
-                          {" "}
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             d="M6 18L18 6M6 6l12 12"
-                          />{" "}
+                          />
                         </svg>
                       </button>
                     )}
@@ -444,8 +440,7 @@ const ProfileCompletion = () => {
             {step === 3 && (
               <div className="animate-fadeIn">
                 <h2 className="text-xl md:text-2xl font-semibold text-gray-700 border-b pb-3 mb-6">
-                  {" "}
-                  Work Experience{" "}
+                  Work Experience
                 </h2>
                 {formData.experience.map((exp) => (
                   <div
@@ -466,12 +461,11 @@ const ProfileCompletion = () => {
                           stroke="currentColor"
                           strokeWidth="2"
                         >
-                          {" "}
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             d="M6 18L18 6M6 6l12 12"
-                          />{" "}
+                          />
                         </svg>
                       </button>
                     )}
@@ -521,8 +515,7 @@ const ProfileCompletion = () => {
             {step === 4 && (
               <div className="animate-fadeIn">
                 <h2 className="text-xl md:text-2xl font-semibold text-gray-700 border-b pb-3 mb-6">
-                  {" "}
-                  Languages{" "}
+                  Languages
                 </h2>
                 <p className="text-sm text-gray-500 mb-4">
                   Select the languages you speak.
@@ -573,13 +566,12 @@ const ProfileCompletion = () => {
                   stroke="currentColor"
                   strokeWidth="2"
                 >
-                  {" "}
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     d="M15 19l-7-7 7-7"
-                  />{" "}
-                </svg>{" "}
+                  />
+                </svg>
                 Previous
               </button>
               {/* Next/Submit Button */}
@@ -589,7 +581,7 @@ const ProfileCompletion = () => {
                   onClick={() => setStep(step + 1)}
                   className="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
                 >
-                  Next{" "}
+                  Next
                   <svg
                     className="h-5 w-5 ml-2"
                     fill="none"
@@ -597,12 +589,11 @@ const ProfileCompletion = () => {
                     stroke="currentColor"
                     strokeWidth="2"
                   >
-                    {" "}
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       d="M9 5l7 7-7 7"
-                    />{" "}
+                    />
                   </svg>
                 </button>
               ) : (
@@ -610,7 +601,7 @@ const ProfileCompletion = () => {
                   type="submit"
                   className="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out"
                 >
-                  Submit Profile{" "}
+                  Submit Profile
                   <svg
                     className="h-5 w-5 ml-2"
                     fill="none"
@@ -618,12 +609,11 @@ const ProfileCompletion = () => {
                     stroke="currentColor"
                     strokeWidth={2}
                   >
-                    {" "}
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       d="M5 13l4 4L19 7"
-                    />{" "}
+                    />
                   </svg>
                 </button>
               )}
