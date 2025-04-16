@@ -9,8 +9,6 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  console.log("Role from cookie:", role);
-
   if (role === "employer" && navigatingRoute.startsWith("/Dashboard")) {
     return NextResponse.redirect(new URL("/Recruiterboard", request.url));
   }

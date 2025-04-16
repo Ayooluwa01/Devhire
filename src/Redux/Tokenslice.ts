@@ -200,7 +200,7 @@ const tokenslice = createSlice({
       ) {
         state.token = action.payload.token;
       } else {
-        console.error("Invalid token format:", action.payload);
+        // console.error("Invalid token format:", action.payload);
         state.token = null;
         state.userbio = null;
         return;
@@ -209,7 +209,6 @@ const tokenslice = createSlice({
       if (state.token) {
         try {
           state.userbio = jwtDecode<UserBio>(state.token);
-          console.log("This is the userbio", state.userbio);
 
           state.role = state.userbio?.role || "";
 
@@ -219,7 +218,7 @@ const tokenslice = createSlice({
             sameSite: "Lax",
           });
         } catch (error) {
-          console.error("Error decoding token", error);
+          // console.error("Error decoding token", error);
           state.userbio = null;
         }
       } else {
