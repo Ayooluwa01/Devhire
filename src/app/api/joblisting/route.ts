@@ -8,7 +8,7 @@ export async function GET() {
   // console.log("filters:", job);
   // const filters = useSelector((state: RootState) => state.Filter);
 
-  const res = await fetch(`${process.env.BACKEND_URL}/Joblistings`);
+  const res = await fetch(`https://devhire-backend.onrender.com/Joblistings`);
 
   const jobs = await res.json();
   // const filters = useSelector((state: RootState) => state.Filter);

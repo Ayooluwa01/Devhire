@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 
-export async function GET(req: Request, props: { params: Promise<{ id: string }> }) {
+export async function GET(
+  req: Request,
+  props: { params: Promise<{ id: string }> }
+) {
   const params = await props.params;
   // const apiUrls = {
   //   local: "http://localhost:9000",
@@ -12,7 +15,7 @@ export async function GET(req: Request, props: { params: Promise<{ id: string }>
   // const API_URL = apiUrls.production;
   try {
     const res = await fetch(
-      `${process.env.BACKEND_URL}/Joblistings/${params.id}`
+      `https://devhire-backend.onrender.com/Joblistings/${params.id}`
     );
 
     if (!res.ok) {
