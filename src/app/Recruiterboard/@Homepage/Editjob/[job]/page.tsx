@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 
 export default async function Editjobs(props: {
   params: Promise<{
-    job: string;
+    job: number;
   }>;
 }) {
   const headersList = headers();
