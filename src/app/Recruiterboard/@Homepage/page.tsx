@@ -23,7 +23,7 @@ export default function Homepage() {
     <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-10">
       {/* Welcome Message */}
       <div className="bg-blue-600 text-white p-6 rounded-lg shadow-md text-center ">
-        <h1 className="text-2xl font-bold">Hello, Ayooluwa!</h1>
+        <h1 className="text-2xl font-bold">Hello, {userid?.name}</h1>
         <p className="mt-2 text-sm">
           Looking for jobs? Browse our latest job openings to view & apply to
           the best jobs today!

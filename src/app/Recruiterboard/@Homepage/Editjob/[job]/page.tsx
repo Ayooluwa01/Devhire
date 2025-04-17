@@ -8,7 +8,7 @@ export default async function Editjobs(props: {
 }) {
   const headersList = headers();
   const protocol = (await headersList).get("x-forwarded-proto") || "http";
-  const host = (await headersList).get("host") || "localhost:3000"; // Fallback for local dev
+  const host = (await headersList).get("host"); // Fallback for local dev
 
   const baseUrl = `${protocol}://${host}`;
   const params = await props.params;
