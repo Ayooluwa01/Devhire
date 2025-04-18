@@ -6,13 +6,17 @@ export default async function Editjobs(props: {
     id: number;
   }>;
 }) {
-  const headersList = headers();
-  const protocol = (await headersList).get("x-forwarded-proto") || "http";
-  const host = (await headersList).get("host"); // Fallback for local dev
+  // const headersList = headers();
+  // const protocol = (await headersList).get("x-forwarded-proto") || "http";
+  // const host = (await headersList).get("host"); // Fallback for local dev
 
-  const baseUrl = `${protocol}://${host}`;
+  // const baseUrl = `${protocol}://${host}`;
   const res = await fetch(
-    `${baseUrl}/api/joblisting/${(await props.params).id}`
+    `https://devhiretalents.vercel.app/api/joblisting/${
+      (
+        await props.params
+      ).id
+    }`
   );
 
   if (!res.ok) {
