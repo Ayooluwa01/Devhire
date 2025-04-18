@@ -11,6 +11,7 @@ export default async function Editjobs(props: {
   const host = (await headersList).get("host"); // Fallback for local dev
 
   const baseUrl = `${protocol}://${host}`;
+  console.log("THE URL:", baseUrl);
   const params = await props.params;
   const res = await fetch(`${baseUrl}/api/joblisting/${params.job}`);
 
