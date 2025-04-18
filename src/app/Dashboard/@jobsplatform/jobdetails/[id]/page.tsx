@@ -6,5 +6,6 @@ export default async function Editjobs(props: {
     id: number;
   }>;
 }) {
-  return <div>Hello</div>;
+  const params = await props.params;
+  return <div>Hello {params.id}</div>;
 }
