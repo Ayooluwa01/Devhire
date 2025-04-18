@@ -33,8 +33,9 @@ export default async function Editjobs(props: {
 
   const baseUrl = `${protocol}://${host}`;
   const params = await props.params;
-  const res = await fetch(`${baseUrl}/api/joblisting/${params.id}`);
-
+  const res = await fetch(`${baseUrl}/api/joblisting/${params.id}`, {
+    cache: "no-store", // Prevents stale data in dynamic route);
+  });
   if (!res.ok) {
     return <div className="text-center text-red-500">Job not found</div>;
   }
