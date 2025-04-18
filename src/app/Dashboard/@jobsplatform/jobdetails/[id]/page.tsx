@@ -6,23 +6,5 @@ export default async function Editjobs(props: {
     id: number;
   }>;
 }) {
-  // const headersList = headers();
-  // const protocol = (await headersList).get("x-forwarded-proto") || "http";
-  // const host = (await headersList).get("host"); // Fallback for local dev
-  const id = (await props.params).id;
-  // const baseUrl = `${protocol}://${host}`;
-  // const res = await fetch(
-  //   `https://devhiretalents.vercel.app/api/joblisting/${
-  //     (
-  //       await props.params
-  //     ).id
-  //   }`
-  // );
-
-  // if (!res.ok) {
-  //   return <div className="text-center text-red-500">Job not found</div>;
-  // }
-
-  // const details = await res.json();
-  return <>{id}</>;
+  return <div>Hello,{(await props.params).id}</div>;
 }
