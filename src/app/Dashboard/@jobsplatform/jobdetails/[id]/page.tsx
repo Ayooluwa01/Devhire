@@ -24,5 +24,5 @@ export default async function Editjobs(props: {
   // }
 
   // const details = await res.json();
-  return { id };
+  return <>{id}</>;
 }
