@@ -27,7 +27,7 @@ export default function JobDetailsClient({ details, jobId }: any) {
     setapplied(true);
   };
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-4">
       <div className="bg-white rounded-lg p-6 mt-6">
         <p className="text-lg text-gray-600 mt-1 flex flex-row">
           <img
