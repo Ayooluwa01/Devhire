@@ -9,7 +9,7 @@ import Link from "next/link";
 type Applicant = {
   email: any;
   applicant_name: string;
-  Profilepicture: any;
+  profilepicture: any;
   title: string;
 };
 export default function ApplicantsList() {
@@ -49,7 +49,7 @@ export default function ApplicantsList() {
               <div className="flex items-center gap-4 p-2 hover:bg-gray-100 rounded-lg">
                 <img
                   src={
-                    applicant.Profilepicture || "https://via.placeholder.com/40"
+                    applicant.profilepicture || "https://via.placeholder.com/40"
                   }
                   alt="Profile"
                   className="w-10 h-10 rounded-full object-cover"
