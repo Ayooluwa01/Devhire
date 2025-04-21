@@ -43,7 +43,8 @@ export default function DashboardLayout({
     pathname === "/Dashboard/profile" ||
     pathname.startsWith("/Dashboard/userdetails/") ||
     pathname === "/Dashboard/Jobs/saved-jobs" ||
-    pathname === "/Dashboard/Jobs/applied-jobs";
+    pathname === "/Dashboard/Jobs/applied-jobs" ||
+    pathname === "/Dashboard/jobdetails";
 
   // Show Filters for all other `/Dashboard` pages
   const showFilters =

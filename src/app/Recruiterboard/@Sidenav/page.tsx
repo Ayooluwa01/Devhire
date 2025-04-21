@@ -26,6 +26,7 @@ export default function Sidenav() {
     };
 
     socket.on("logoimage", handleProfilePicUpdate);
+    socket.emit("Getlogo", userProfile?.user_id);
 
     // Cleanup socket listener when component unmounts or userProfile changes
     return () => {

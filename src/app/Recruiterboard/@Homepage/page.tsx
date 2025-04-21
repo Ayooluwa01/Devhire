@@ -11,6 +11,7 @@ export default function Homepage() {
   const [numberofjobs, setnumberofjobs] = useState();
   useEffect(() => {
     socket.emit("Totalofalljobs", userid?.user_id);
+
     socket.on("Totalofjobs", (numberofjobs) => {
       setnumberofjobs(numberofjobs);
     });
