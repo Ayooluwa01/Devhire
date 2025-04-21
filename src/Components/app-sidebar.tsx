@@ -26,21 +26,20 @@ export function AppSidebar() {
   let userpics = useSelector((state: RootState) => state.Token.userprofile);
   const dispatch = useDispatch();
 
-  const [profile, setProfile] = useState(userpics.Profilepicture);
+  const [profile, setProfile] = useState(userpics.logoimage);
   useEffect(() => {
-    socket.on("ppics", (ppics) => {
+    const handleProfilePicUpdate = (ppics: string) => {
       setProfile(ppics);
-    });
-
-    // socket.on("Profile", (data) => {
-    //   dispatch(storeprofile(data));
-    // });
-
-    return () => {
-      socket.off("ppics");
-      socket.off("Profile");
     };
-  }, [socket, dispatch, userProfile?.user_id]);
+
+    socket.on("logoimage", handleProfilePicUpdate);
+    socket.emit("Getlogo", userProfile?.user_id);
+
+    // Cleanup socket listener when component unmounts or userProfile changes
+    return () => {
+      socket.off("logo", handleProfilePicUpdate);
+    };
+  }, [userProfile?.user_id]);
 
   // const handleLogout = async () => {
   //   // try {
