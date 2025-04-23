@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     siteName: "Devhire",
     images: [
       {
-        url: "https://www.imghippo.com/i/sED3011Iw.png", // Replace with your OG image path
+        url: "https://i.imghippo.com/files/sED3011Iw.png", // Replace with your OG image path
         width: 1200,
         height: 630,
         alt: "Devhire Logo",
