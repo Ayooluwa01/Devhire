@@ -2,6 +2,7 @@ import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import { NextAuthOptions } from "next-auth";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 // Extend NextAuth types directly
 declare module "next-auth" {
@@ -41,26 +42,25 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async signIn({ user }) {
-      // try {
-      //   const response = await axios.post(
-      //     `${process.env.BACKEND_URL}/auth`,
-      //     {
-      //       email: user.email,
-      //       name: user.name,
-      //     },
-      //     { withCredentials: true }
-      //   );
+      try {
+        const response = await axios.post(
+          `${process.env.BACKEND_URL}/auth`,
+          {
+            email: user.email,
+            name: user.name,
+          },
+          { withCredentials: true }
+        );
 
-      //   return response.status === 200;
-      // } catch (error) {
-      //   console.error("Error during sign-in process:", error);
-      //   return false;
-      // }
-      return true;
+        return response.status === 200;
+      } catch (error) {
+        console.error("Error during sign-in process:", error);
+        return false;
+      }
     },
 
-    async redirect({ url, baseUrl }) {
-      return url.startsWith(baseUrl) ? url : `${baseUrl}/Dashboard`;
+    async redirect() {
+      return "/Dashboard";
     },
 
     async jwt({ token, user }) {
