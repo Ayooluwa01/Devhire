@@ -41,21 +41,22 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async signIn({ user }) {
-      try {
-        const response = await axios.post(
-          `${process.env.BACKEND_URL}/auth`,
-          {
-            email: user.email,
-            name: user.name,
-          },
-          { withCredentials: true }
-        );
+      // try {
+      //   const response = await axios.post(
+      //     `${process.env.BACKEND_URL}/auth`,
+      //     {
+      //       email: user.email,
+      //       name: user.name,
+      //     },
+      //     { withCredentials: true }
+      //   );
 
-        return response.status === 200;
-      } catch (error) {
-        console.error("Error during sign-in process:", error);
-        return false;
-      }
+      //   return response.status === 200;
+      // } catch (error) {
+      //   console.error("Error during sign-in process:", error);
+      //   return false;
+      // }
+      return true;
     },
 
     async redirect({ url, baseUrl }) {
