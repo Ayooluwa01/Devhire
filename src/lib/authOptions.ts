@@ -2,7 +2,6 @@ import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import { NextAuthOptions } from "next-auth";
 import axios from "axios";
-import Cookies from "js-cookie";
 
 // Extend NextAuth types directly
 declare module "next-auth" {
@@ -59,8 +58,8 @@ export const authOptions: NextAuthOptions = {
       }
     },
 
-    async redirect() {
-      return "/Dashboard";
+    async redirect({ url, baseUrl }) {
+      return url.startsWith(baseUrl) ? url : `${baseUrl}/Dashboard`;
     },
 
     async jwt({ token, user }) {

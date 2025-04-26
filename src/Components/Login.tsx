@@ -43,9 +43,11 @@ const Login = () => {
               withCredentials: true, // Allows cookies to be sent
             }
           );
+
           if (res.status === 200) {
             // Redirect to Dashboard if login is successful
             dispatch(storeToken(res.data));
+            router.push("/Dashboard");
           } else {
             // Handle error if necessary
           }
@@ -124,7 +126,7 @@ const Login = () => {
           <div className="flex space-x-2">
             <button
               className="flex-1 py-2 px-4 border-gray-500 border-2 rounded-lg text-gray-600 cursor-pointer"
-              onClick={() => signIn("google", { callbackUrl: "/Dashboard" })}
+              onClick={() => signIn("google")}
             >
               <span>
                 <img
@@ -137,7 +139,7 @@ const Login = () => {
             </button>
             <button
               className="flex-1 py-2 px-4 border rounded-md text-gray-600 cursor-pointer"
-              onClick={() => signIn("github", { callbackUrl: "/Dashboard" })}
+              onClick={() => signIn("github")}
             >
               <span>
                 <img
