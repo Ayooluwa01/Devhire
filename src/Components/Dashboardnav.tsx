@@ -41,14 +41,13 @@ export default function Navbar() {
     // }
 
     try {
+      signOut();
+
       document.cookie = "next-auth.session-token=; max-age=0; path=/";
       document.cookie = "role=; max-age=0; path=/";
       // await signOut({ redirect: false });
-      router.push("/login");
-
       Cookies.remove("next-auth.session-token", { path: "/" });
       Cookies.remove("role", { path: "/" });
-      await signOut({ redirect: false });
       // await axios.post(
       //   "https://devhire-backend.onrender.com/logout",
       //   {},
