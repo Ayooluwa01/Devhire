@@ -201,7 +201,7 @@ export default function Navbar() {
                 APPLIED JOBS
               </Link> */}
               <p
-                className="hover:text-red-600 font-medium z-[999]"
+                className="hover:text-red-600 font-medium z-[999] cursor-pointer"
                 onClick={handleLogout}
               >
                 LOG OUT
