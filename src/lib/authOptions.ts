@@ -59,7 +59,7 @@ export const authOptions: NextAuthOptions = {
     },
 
     async redirect({ url, baseUrl }) {
-      return url.startsWith(baseUrl) ? url : `${baseUrl}/Dashboard`;
+      return url.startsWith(baseUrl) ? url : `${baseUrl}/login`;
     },
 
     async jwt({ token, user }) {

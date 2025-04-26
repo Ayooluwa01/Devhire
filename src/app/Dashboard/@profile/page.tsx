@@ -100,13 +100,13 @@ function LogoutButton() {
 
   const handleLogout = async () => {
     try {
+      signOut();
       document.cookie = "next-auth.session-token=; max-age=0; path=/";
       document.cookie = "role=; max-age=0; path=/";
       // await signOut({ redirect: false });
-      router.push("/login");
+
       Cookies.remove("next-auth.session-token", { path: "/" });
       Cookies.remove("role", { path: "/" });
-      await signOut({ redirect: false });
 
       dispatch(logout());
       dispatch(removeToken());
