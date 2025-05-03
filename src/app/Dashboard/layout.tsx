@@ -50,10 +50,10 @@ export default function DashboardLayout({
       <div className={`${poppins.variable} ${karla.variable}`}>
         <DashboardNavbar />
         <div className="flex flex-col md:flex-row min-h-screen">
-          <SidebarProvider className="md:hidden absolute">
+          {/* <SidebarProvider className="md:hidden absolute">
             <SeekerSidebar />
             <SidebarTrigger className="md:hidden absolute right-0 top-0 " />
-          </SidebarProvider>
+          </SidebarProvider> */}
 
           <aside className="hidden md:block bg-white p-4 shadow relative md:w-1/4">
             {profile}
