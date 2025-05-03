@@ -103,7 +103,7 @@ export default function Navbar() {
           <Link href="/Dashboard" className="hover:text-red-500">
             JOBS
           </Link>
-          <Link href="#" className="hover:text-red-500">
+          <Link href="/Dashboard/chatpage" className="hover:text-red-500">
             CHATS
           </Link>
         </div>

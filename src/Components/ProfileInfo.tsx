@@ -247,7 +247,9 @@ const ProfileCompletion = () => {
         { withCredentials: true }
       );
 
-      router.push(`/Dashboard`);
+      if (res.status === 200) {
+        router.push(`/Dashboard`);
+      }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error(
@@ -599,7 +601,7 @@ const ProfileCompletion = () => {
               ) : (
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out"
+                  className="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out z-40"
                 >
                   Submit Profile
                   <svg
