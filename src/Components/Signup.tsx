@@ -1,11 +1,13 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { storeToken } from "@/Redux/Tokenslice";
 const SignUp = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -16,6 +18,39 @@ const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const router = useRouter();
+  const dispatch = useDispatch();
+  const { data: session, status } = useSession();
+  useEffect(() => {
+    const checkAuth = async () => {
+      if (status === "authenticated") {
+        try {
+          const formData = {
+            email: session?.user?.email,
+            name: session?.user?.name,
+            // Add other necessary form data fields here
+          };
+
+          const res = await axios.post(
+            `https://devhire-backend.onrender.com/auth`,
+            formData,
+            {
+              withCredentials: true, // Allows cookies to be sent
+            }
+          );
+
+          if (res.status === 200) {
+            // Redirect to Dashboard if login is successful
+            dispatch(storeToken(res.data));
+            router.push("/Dashboard");
+          } else {
+            // Handle error if necessary
+          }
+        } catch (error) {}
+      }
+    };
+
+    checkAuth();
+  }, [status, session, router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
