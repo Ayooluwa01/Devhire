@@ -59,7 +59,7 @@ export default function DashboardLayout({
             {profile}
           </aside>
 
-          <main className="flex-1 p-6 flex flex-col">
+          <main className="flex-1 p-6 flex flex-col h-screen pt-16">
             <div className="mb-4">{children}</div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 flex-1">
