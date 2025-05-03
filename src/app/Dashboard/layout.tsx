@@ -54,7 +54,7 @@ export default function DashboardLayout({
           <SidebarTrigger className="md:hidden absolute right-0 top-0 " />
         </SidebarProvider>
 
-        <div className="flex flex-col md:flex-row min-h-screen">
+        <div className="flex flex-col md:flex-row min-h-screen ">
           <aside className="hidden md:block bg-white p-4 shadow relative md:w-1/4">
             {profile}
           </aside>
@@ -62,7 +62,7 @@ export default function DashboardLayout({
           <main className="flex-1 p-6 flex flex-col h-screen pt-16">
             <div className="mb-4">{children}</div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 flex-1">
+            <div className="grid grid-cols-1 md:grid-cols-3 flex-1 overflow-hidden">
               <section
                 className={`overflow-y-scroll h-full scrollbar-none ${
                   hideSidebar ? "md:col-span-3" : "md:col-span-2"
