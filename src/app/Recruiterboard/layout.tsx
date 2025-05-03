@@ -55,17 +55,16 @@ export default function DashboardLayout({
     <SessionProvider>
       <div className={`${poppins.variable} ${karla.variable}`}>
         <DashboardNavbar />
+        {/* Sidebar - Profile (Hidden on small screens) */}
+        <SidebarProvider className="lg:hidden absolute ">
+          <AppSidebar />
 
+          <SidebarTrigger
+            className="lg:hidden absolute right-0 top-0 "
+            onClick={visible}
+          />
+        </SidebarProvider>{" "}
         <div className="flex flex-col md:flex-row h-screen">
-          {/* Sidebar - Profile (Hidden on small screens) */}
-          <SidebarProvider className="lg:hidden absolute ">
-            <AppSidebar />
-
-            <SidebarTrigger
-              className="lg:hidden absolute right-0 top-0 z-40"
-              onClick={visible}
-            />
-          </SidebarProvider>
           <aside className="hidden lg:block bg-white p-4 shadow relative h-screen md:w-1/4">
             {Sidenav}
           </aside>

@@ -53,6 +53,7 @@ export default function DashboardLayout({
           <SeekerSidebar />
           <SidebarTrigger className="md:hidden absolute right-0 top-0 " />
         </SidebarProvider>
+
         <div className="flex flex-col md:flex-row min-h-screen">
           <aside className="hidden md:block bg-white p-4 shadow relative md:w-1/4">
             {profile}
@@ -63,7 +64,7 @@ export default function DashboardLayout({
 
             <div className="grid grid-cols-1 md:grid-cols-3 flex-1">
               <section
-                className={`overflow-y-auto flex-1 scrollbar-none ${
+                className={`overflow-y-scroll h-full scrollbar-none ${
                   hideSidebar ? "md:col-span-3" : "md:col-span-2"
                 }`}
               >
