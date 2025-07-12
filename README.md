@@ -20,4 +20,7 @@
 ## 📦 Getting Started
 
 ### 1. Clone the Repository
+### 2. Npm install
+
+
 
